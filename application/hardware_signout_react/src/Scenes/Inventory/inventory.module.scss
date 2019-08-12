@@ -1,0 +1,51 @@
+@import './../../Assets/Abstracts/mixins.scss';
+@import './../../Assets/Abstracts/variables.scss';
+
+.inventory {
+    position: relative;
+    width: 80%;
+    margin: 25px auto;
+    @include flexPosition(flex-start,flex-start);
+    flex-direction: column;
+
+    h1 {
+        margin: 17px 0 5px 7px;
+        font-size: size(md);
+        font-weight: normal;
+    }
+
+    &Filters {
+        @include flexPosition(flex-start, flex-start);
+        flex-wrap: wrap;
+        width: 100%;
+
+        button {
+            background: #979797;
+            border-radius: 1.6px;
+            color: color(white);
+            border: none;
+            font-size: size(xs) - .4rem;
+            font-weight: 600;
+            margin: 7px;
+            padding: .5rem 1rem;
+            transition: all .2s;
+
+            &:hover {
+                background-color: darken(#979797, 10%);
+            }
+            &:active {
+                background-color: color(yellow);
+            }
+        }
+
+        .active {
+            background-color: color(yellow) !important;
+        }
+    }
+    
+    &List {
+        @include flexPosition(flex-start, flex-start);
+        flex-wrap: wrap;
+        margin-top: 1rem;
+    }
+}

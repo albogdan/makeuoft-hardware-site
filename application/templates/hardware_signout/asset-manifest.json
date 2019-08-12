@@ -1,0 +1,26 @@
+{
+  "files": {
+    "main.css": "/static/css/main.9df9ea0a.chunk.css",
+    "main.js": "/static/js/main.ce241ead.chunk.js",
+    "main.js.map": "/static/js/main.ce241ead.chunk.js.map",
+    "runtime~main.js": "/static/js/runtime~main.c8d9c486.js",
+    "runtime~main.js.map": "/static/js/runtime~main.c8d9c486.js.map",
+    "static/js/2.ec4da2aa.chunk.js": "/static/js/2.ec4da2aa.chunk.js",
+    "static/js/2.ec4da2aa.chunk.js.map": "/static/js/2.ec4da2aa.chunk.js.map",
+    "index.html": "/index.html",
+    "precache-manifest.e382d4d1030bab5e20c716572689c89f.js": "/precache-manifest.e382d4d1030bab5e20c716572689c89f.js",
+    "service-worker.js": "/service-worker.js",
+    "static/css/main.9df9ea0a.chunk.css.map": "/static/css/main.9df9ea0a.chunk.css.map",
+    "static/media/Arduino.png": "/static/media/Arduino.577f8a61.png",
+    "static/media/add logo.3428f067.svg": "/static/media/add logo.3428f067.svg",
+    "static/media/addTeam.eca3c87e.svg": "/static/media/addTeam.eca3c87e.svg",
+    "static/media/alert.dbe00ab9.svg": "/static/media/alert.dbe00ab9.svg",
+    "static/media/cart logo.d2f6e539.svg": "/static/media/cart logo.d2f6e539.svg",
+    "static/media/checkmark.8dc9931b.svg": "/static/media/checkmark.8dc9931b.svg",
+    "static/media/edit-symbol.6ee73edd.svg": "/static/media/edit-symbol.6ee73edd.svg",
+    "static/media/house logo.ac77bebf.svg": "/static/media/house logo.ac77bebf.svg",
+    "static/media/logo.edf13952.svg": "/static/media/logo.edf13952.svg",
+    "static/media/team logo.8bbbcb88.svg": "/static/media/team logo.8bbbcb88.svg",
+    "static/media/x.ceb6665f.svg": "/static/media/x.ceb6665f.svg"
+  }
+}

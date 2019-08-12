@@ -1,0 +1,32 @@
+@import './../../../Assets/Abstracts/variables';
+@import './../../../Assets/Abstracts/mixins.scss';
+
+
+.header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 43px;
+    height: 100vh;
+    background: linear-gradient(266.06deg, #48A0AF 1.21%, #388DB7 93.37%);
+
+    &Container {
+        @include flexPosition;
+        flex-direction: column;
+        margin-top: 1rem;
+        height: 200px;
+
+        svg {
+            fill: color(white);
+            width: 25px;
+            height: 25px;
+            display: block;
+            cursor: pointer;
+            transition: fill .2s;
+
+            &:hover {
+                fill: color(yellow);
+            }
+        }
+    }
+}

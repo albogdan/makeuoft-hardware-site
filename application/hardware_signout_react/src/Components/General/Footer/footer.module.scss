@@ -1,0 +1,50 @@
+@import './../../../Assets//Abstracts/_variables';
+
+footer {
+    box-sizing: border-box;
+    width: 100%;
+    color: color(white);
+    background-color: color(dark);
+    font-size: 14px; 
+    padding: 3rem 2rem;
+}
+
+.footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    margin: auto;
+
+    &-creds {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    &-hear-from-you {
+        font-size: 36px;
+        letter-spacing: .1rem;
+        padding-bottom: 2.5rem;
+    }
+    
+    &-email {
+        font-size: 22px;
+        font-weight: 500;
+        padding: .5rem 1rem;
+    }
+
+
+    &-to-top {
+        font-size: 20px;
+        align-self: center;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+}
+
+.logo { 
+    height: 6.5rem; 
+}
