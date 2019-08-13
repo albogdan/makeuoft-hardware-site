@@ -14,7 +14,7 @@ from werkzeug.urls import url_parse
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
     if(current_user.is_authenticated):
-        return redirect(url_for('home.index'))
+        return redirect(url_for('hardware_signout.index'))
     form = LoginForm()
     if(form.validate_on_submit()):
         user = Users.query.filter_by(email=form.email.data).first()
@@ -27,7 +27,7 @@ def login():
         next_page = request.args.get('next')
 
         if(not next_page or url_parse(next_page).netloc != ''):
-            next_page = url_for('home.index')
+            next_page = url_for('hardware_signout.index')
 
         return redirect(next_page)
 
@@ -42,7 +42,7 @@ def logout():
 @auth.route('/register', methods=['GET', 'POST'])
 def register():
     if(current_user.is_authenticated):
-        return redirect(url_for('home.index'))
+        return redirect(url_for('hardware_signout.index'))
     form = RegistrationForm()
     if(form.validate_on_submit()):
         print("Submission successful")
