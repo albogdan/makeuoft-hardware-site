@@ -8,7 +8,14 @@ import CreateTeam from '../../Components/General/CreateTeam/CreateTeam';
 export default class App extends PureComponent {
   constructor(props) {
     super(props);
-    this.state = {popup: false};
+    this.state = {
+      popup: false,
+      test: undefined
+    };
+  }
+  async componentDidMount() {
+    let testRequest = await fetch('http://localhost:8080/api/test');
+    this.setState({ test: testRequest});
   }
 
   openPopup() {
@@ -25,7 +32,7 @@ export default class App extends PureComponent {
     return (
       <div className={styles.home}>
 
-        {popup && 
+        {popup &&
           <CreateTeam close={() => {this.closePopup()}} />
         }
 
@@ -56,7 +63,7 @@ export default class App extends PureComponent {
           </div>
         </div>
       </div>
-      
+
     )
   }
 }
