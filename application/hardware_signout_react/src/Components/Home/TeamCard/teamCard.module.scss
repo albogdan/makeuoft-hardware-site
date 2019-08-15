@@ -60,6 +60,8 @@
             background: color(white);
             outline: none;
             transition: all .2s;
+            font-weight: 500;
+            font-size: size(xxs);
             
             &:hover {
                 background: color(lightgrey);

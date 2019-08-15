@@ -8,7 +8,7 @@
     color: color(white);
     padding: .8rem 1.5rem;
     border-radius: 100px;
-    font-size: size(xs) + .1rem;
+    font-size: size(xs);
     background: color($color);
     border: 1px solid color($color);
     margin: 1.5rem 0;
@@ -23,9 +23,9 @@
 
 @mixin btnOutline($color: blue) {
     color: color(dark);
-    padding: .8rem 2rem;
+    padding: .7rem 1.5rem;
     border-radius: 100px;
-    font-size: size(xs);
+    font-size: size(xxs);
     background: color(white);
     border: 1px solid color($color);
     margin: 1.5rem 0;

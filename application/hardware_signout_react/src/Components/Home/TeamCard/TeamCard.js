@@ -33,8 +33,8 @@ export default class TeamCard extends PureComponent {
                     </div>
                 </div>
                 <div className={styles.cardButton}>
-                    <button className={styles.cardButton1}>Blah</button>
-                    <button className={styles.cardButton2}>Blah</button>
+                    <button className={styles.cardButton1}>Add to cart</button>
+                    <button className={styles.cardButton2}>View cart</button>
                 </div>
             </div>
         )

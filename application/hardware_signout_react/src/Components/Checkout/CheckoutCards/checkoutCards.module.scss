@@ -42,19 +42,24 @@
     &List {
         background: color(white);
         padding: 3rem;
-        min-height: 100vh;
+        height: 100vh;
+        overflow-y: scroll;
+        @include flexPosition(flex-start, center);
+        flex-direction: column;
 
         .btnOutline {
             @include btnOutline;
         }
         .btnFilled {
             @include btnFilled;
+            align-self: flex-end;
         }
     }
 
     &Basket {
         padding: 3rem;
-        min-height: 100vh;
+        height: 100vh;
+        overflow-y: scroll;
 
         h2 {
             font-size: size(md);

@@ -2,47 +2,67 @@ import React, { PureComponent } from 'react';
 import styles from './itemSelector.module.scss';
 import Select from 'react-select';
 
-
-const component = [
-    { value: 'chocolate', label: 'Chocolate' },
-    { value: 'strawberry', label: 'Strawberry' },
-    { value: 'vanilla', label: 'Vanilla' },
-];
-
-const quantity = [
-    { value: 1, label: 1},
-    { value: 2, label: 2},
-    { value: 3, label: 3},
-];
+const colourStyles = {
+    control: (styles, state) => ({ 
+        ...styles, 
+        backgroundColor: 'white', 
+        borderColor: state.isFocused ? '#3386BA' :'#ccc',
+        boxShadow: state.isFocused && `0 0 0 1px #3386BA`
+     }),
+    option: (provided, state) => ({
+        ...provided,
+        fontSize: 14,
+    }),
+    placeholder: () => ({ fontSize: 14 }),
+    singleValue: () => ({ fontSize: 14 }),
+    groupHeading: () => ({ fontSize: 12, padding: 12, paddingTop: 0, color: '#3386BA', fontWeight: 'bold' }),
+  };
   
 export default class ItemSelector extends PureComponent {
     constructor(props) {
         super(props);
-        this.state = { selectedOption: null }
+        this.state = { selectedOption: null, isClearable: true}
     }
 
     handleChange = selectedOption => {
         this.setState({ selectedOption });
-        console.log(`Option selected:`, selectedOption);
     };
-    render() {
-        const { selectedOption } = this.state;
-        const { type } = this.props;
-        let option, style;
-        if (type === "component") {
-            option = component;
-            style = styles.component;
-        } else if (type === "quantity") {
-            option = quantity;
-            style = styles.quantity;
-        }
 
+    // onClick = event => {
+    //     this.handleChange() ;
+    //     this.props.onChange;
+    //  };
+
+    render() {
+        let { selectedOption } = this.state;
+        let { type, options, formatGroupLabel, defaultValue, onChange } = this.props;
+        
+        let style, placeholder, isClearable;
+        if (type === "quantity") {
+            style = styles.quantity; 
+            placeholder = "";
+            isClearable = false;
+        } else if (type === "team") {
+            style = styles.team; 
+            placeholder = "Select...";
+            isClearable = true;
+        } else  {
+            style = styles.component;
+            placeholder = "Select...";
+            isClearable = true;
+        }
         return (
             <Select
             value={selectedOption}
-            onChange={this.handleChange}
-            options={option}
+            onChange={this.handleChange()}
             className={style}
+            styles={colourStyles}
+
+            options={options}
+            formatGroupLabel={formatGroupLabel}
+            defaultValue={defaultValue}
+            placeholder={placeholder}
+            isClearable={isClearable}
             />
         );
     }
