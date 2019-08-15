@@ -60,3 +60,10 @@ def register():
 def apply():
     form = ApplicationForm()
     return render_template('auth/application.html', form=form)
+
+
+# @auth.route('/api', methods=['GET','POST'])
+# @login_required
+# def api():
+#     print("success")
+#     return jsonify({'message': 'User registration'})
