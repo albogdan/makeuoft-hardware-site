@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 4dfdb61efd15
+Revision ID: 7ac48e7242c9
 Revises: 
-Create Date: 2019-08-12 22:37:15.768221
+Create Date: 2019-08-15 12:34:34.979253
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '4dfdb61efd15'
+revision = '7ac48e7242c9'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -21,11 +21,13 @@ def upgrade():
     op.create_table('parts_available',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('part_name', sa.String(length=255), nullable=False),
+    sa.Column('part_manufacturer', sa.String(length=255), nullable=True),
     sa.Column('quantity_available', sa.Integer(), nullable=True),
     sa.Column('quantity_remaining', sa.Integer(), nullable=True),
     sa.Column('serial_number', sa.String(length=255), nullable=True),
     sa.PrimaryKeyConstraint('id')
     )
+    op.create_index(op.f('ix_parts_available_part_manufacturer'), 'parts_available', ['part_manufacturer'], unique=False)
     op.create_index(op.f('ix_parts_available_part_name'), 'parts_available', ['part_name'], unique=False)
     op.create_table('tag',
     sa.Column('id', sa.Integer(), nullable=False),
@@ -90,5 +92,6 @@ def downgrade():
     op.drop_index(op.f('ix_tag_tag_name'), table_name='tag')
     op.drop_table('tag')
     op.drop_index(op.f('ix_parts_available_part_name'), table_name='parts_available')
+    op.drop_index(op.f('ix_parts_available_part_manufacturer'), table_name='parts_available')
     op.drop_table('parts_available')
     # ### end Alembic commands ###

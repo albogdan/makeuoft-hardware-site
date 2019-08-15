@@ -69,6 +69,7 @@ class PartsAvailable(db.Model):
     #__tablename__ = 'parts_available'
     id = db.Column(db.Integer, primary_key=True)
     part_name = db.Column(db.String(255), index=True, nullable=False)
+    part_manufacturer = db.Column(db.String(255), index=True)
     quantity_available = db.Column(db.Integer)
     quantity_remaining = db.Column(db.Integer)
     serial_number = db.Column(db.String(255))
@@ -77,10 +78,13 @@ class PartsAvailable(db.Model):
     parts_signed_out = db.relationship('PartsSignedOut', backref='partsavailable', lazy=True)
 
     # Tags
-    tags = db.relationship('Tag', secondary=tags, lazy='subquery',
-        backref=db.backref('partsavailable', lazy=True))
+    tag_list = db.relationship('Tag', secondary=tags, lazy='dynamic',
+        backref=db.backref('partsavailable', lazy='dynamic'))
     # __repr__ method describes how objects of this class are printed
     # (useful for debugging)
+
+
+
     def __repr__(self):
         return '<Part {}>'.format(self.id) #prints <Part 'id'>
 
@@ -104,6 +108,9 @@ class PartsSignedOut(db.Model):
 class Tag(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     tag_name = db.Column(db.String(255), index=True, nullable=False)
+
+
+
 
 """
 # Admin table **can be merged with user db maybe if implement roles (if not lazy)
