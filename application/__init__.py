@@ -91,4 +91,4 @@ def create_app():
 from application import db_models
 
 # Import the custom Command Line Interface file for custom flask commands
-#from application import cli
+from application import cli
