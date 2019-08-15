@@ -1,5 +1,9 @@
 import React, { PureComponent } from 'react'
 import styles from './checkout.module.scss';
+import ItemSelector from '../../Components/Checkout/ItemSelector/ItemSelector';
+import BasketItem from '../../Components/Checkout/BasketItem/BasketItem';
+import CheckoutCard from '../../Components/Checkout/CheckoutCards/CheckoutCard';
+import BasketCard from '../../Components/Checkout/CheckoutCards/BasketCard';
 
 export default class Checkout extends PureComponent {
   constructor(props) {
@@ -10,24 +14,13 @@ export default class Checkout extends PureComponent {
   render() {
     return (
       <div className={styles.checkout}>
-        <div className={styles.checkoutList}>
-          <h2>Checkout</h2>
-
-          <div className={styles.checkoutTable}>
-            <p>Component</p>
-            <p>Quantity</p>
-          </div>
-
-
+        <div className={styles.checkoutDiv}>
+          <CheckoutCard />
         </div>
-        <div className={styles.checkoutBasket}>
-          <h2>Basket</h2>
-          <div className={styles.checkoutTable}>
-            <p>Component</p>
-            <p>Quantity</p>
-          </div>
 
-        </div>        
+        <div className={styles.checkoutDiv}>
+          <BasketCard />
+        </div>         
       </div>
     )
   }

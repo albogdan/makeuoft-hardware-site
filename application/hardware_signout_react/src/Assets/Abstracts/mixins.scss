@@ -4,12 +4,38 @@
     align-items: $alIte;
 }
 
-@mixin title {
-    font-family: font(roboto);
-    color: color($color);
-    font-weight: bold;
-    text-align: center;
-    letter-spacing: 0.5px;
+@mixin btnFilled($color: green) {
+    color: color(white);
+    padding: .8rem 1.5rem;
+    border-radius: 100px;
+    font-size: size(xs) + .1rem;
+    background: color($color);
+    border: 1px solid color($color);
+    margin: 1.5rem 0;
+    transition: all .2s;
+    font-weight: 500;
+
+    &:hover {
+        background: darken(color($color), 10%);
+        border: 1px solid darken(color($color), 10%);
+    }
+}
+
+@mixin btnOutline($color: blue) {
+    color: color(dark);
+    padding: .8rem 2rem;
+    border-radius: 100px;
+    font-size: size(xs);
+    background: color(white);
+    border: 1px solid color($color);
+    margin: 1.5rem 0;
+    transition: all .2s;
+    font-weight: 500;
+
+    &:hover {
+        background: color($color);
+        color: color(white);
+    }
 }
 
 

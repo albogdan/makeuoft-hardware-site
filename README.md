@@ -20,6 +20,16 @@ source venv/bin/activate
 pip install -r requirements.txt
 python main.py
 ```
+## Usage
+In terminal (make sure you're in the hardware-site folder):
+
+```bash
+source venv/bin/activate
+python main.py
+cd application/hardware_signout_react
+npm install
+npm start
+```
 
 Go on and edit the site and commit your changes :)
 
