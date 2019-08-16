@@ -7,7 +7,7 @@ import { ReactComponent as Alert } from './../../../Assets/Images/Icons/alert.sv
 
 export default class TeamCard extends PureComponent {
     render() {
-        let {teamNumber} = this.props;
+        let {teamNumber, members} = this.props;
         return (
             <div className={styles.card}>
                 <div className={styles.cardTitle}>
@@ -15,26 +15,19 @@ export default class TeamCard extends PureComponent {
                     <Edit />
                 </div>
                 <div className={styles.cardMembers}>
-                    <div className={styles.cardMembersName}>
-                        <p>Lisa Li</p>
-                        <Check />
-                    </div>
-                    <div className={styles.cardMembersName}>
-                        <p>Lisa Li</p>
-                        <Alert />
-                    </div>
-                    <div className={styles.cardMembersName}>
-                        <p>Lisa Li</p>
-                        <Alert />
-                    </div>
-                    <div className={styles.cardMembersName}>
-                        <p>Lisa Li</p>
-                        <Check />
-                    </div>
+                    {members.map((item, i) =>
+                        <div className={styles.cardMembersName}>
+                            <p>{item.name}</p>
+                            {item.id ? <Check /> : <Alert />}
+                        </div>
+                    )}
                 </div>
                 <div className={styles.cardButton}>
                     <button className={styles.cardButton1}>Add to cart</button>
-                    <button className={styles.cardButton2}>View cart</button>
+                    <Link to={{pathname: '/team-overview' }}> 
+                    {/* ,state: { ...item} */}
+                        <button className={styles.cardButton2}>View cart</button>
+                    </Link>
                 </div>
             </div>
         )

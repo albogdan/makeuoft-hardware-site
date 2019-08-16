@@ -40,7 +40,10 @@ code {
   position: absolute;
   right: 0;
   top: 0;
+  height: 100vh;
+  overflow-y: scroll;
 }
+
 h1 {
   font-weight: 600;
   font-size: size(md);

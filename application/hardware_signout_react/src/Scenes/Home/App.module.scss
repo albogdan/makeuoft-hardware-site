@@ -5,6 +5,11 @@
     position: relative;
     width: 80%;
     margin: 25px auto;
+
+    @include response(xl) {
+        width: 100%;
+        padding: 0 6rem;   
+    }
 }
 
 .overview {

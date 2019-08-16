@@ -9,9 +9,9 @@ export default class Component extends PureComponent {
 
         return (
             <div className={`${styles.component} ${isCheckout ? styles['checkout'] : null}`} onClick={open}>
-                <img src={require('./../../../Assets/Images/Components/' + item + '.png')} alt={item} ></img>
+                <img src={require('./../../../Assets/Images/Components/' + item + '.jpg')} alt={item} ></img>
                 <div className={styles.componentDiv}>
-                <p className={styles.componentDivName}>Arduino</p>
+                <p className={styles.componentDivName}>{item}</p>
                 {(left > 0) &&
                     <p className={styles.componentDivStock}>{left} of {total} in stock</p>
                 }

@@ -7,7 +7,8 @@ export default class CreateTeam extends PureComponent {
     render() {
         let { close } = this.props;
         return (
-            <div className={styles.popup}>
+            <div className={styles.overlay}>
+                <div className={styles.popup} onClick={close}></div>
                 <div className={styles.popupCard}>
                     <Close onClick={close} />
                     <p className={styles.popupCardHeading}>Create Team</p>
