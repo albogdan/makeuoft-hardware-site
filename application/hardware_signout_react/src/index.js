@@ -4,12 +4,11 @@ import './index.scss';
 import App from './Scenes/Home/App';
 import Inventory from './Scenes/Inventory/Inventory';
 import Checkout from './Scenes/Checkout/Checkout';
-import { Link } from 'react-router-dom';
+import TeamOverview from './Scenes/TeamOverview/TeamOverview';
 import { HashRouter as Router, Route } from 'react-router-dom';
 import * as serviceWorker from './serviceWorker';
-import NavBar from './Components/General/Navbar/Navbar'
-import ScrollToTop from './Assets/ScrollToTop'
-
+import NavBar from './Components/General/Navbar/Navbar';
+import ScrollToTop from './Assets/ScrollToTop';
 
 class MyApp extends React.PureComponent {
     render() {
@@ -20,6 +19,7 @@ class MyApp extends React.PureComponent {
                         <NavBar />
                         <div className="indexContainer">
                             <Route exact path="/" component={App} />
+                            <Route exact path="/team-overview" component={TeamOverview} />
                             <Route path="/inventory" component={Inventory} />
                             <Route path="/checkout" component={Checkout} />
                         </div>

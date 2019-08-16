@@ -2,14 +2,23 @@
 @import './../../../Assets/Abstracts/mixins.scss';
 
 .card {
-    // box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.139068);
     background: #FFFFFF;
-    box-shadow: 0px 0px 11px rgba(0, 0, 0, 0.01);
     border-radius: 4px;
     max-width: 20rem;
     padding-top: 1rem;
     margin: 7px;
     width: 23%;
+    border: 1px solid color(borderGrey);
+
+    @include response(lg) {
+        width: 30%;
+        max-width: 30rem;
+
+    }
+    @include response(lg/md) {
+        width: 45%;
+        max-width: 34rem;
+    }
     
     &Title {
         @include flexPosition;
@@ -45,6 +54,7 @@
             p {
                 font-size: 14px;
                 margin-right: 5px;
+                margin-bottom: 2px;
             }
             
         }
@@ -82,7 +92,7 @@
 }
 
 .addCard {
-    height: 154px;
+    height: 164px;
     @include flexPosition(center, center);
     flex-direction: column;
     cursor: pointer;

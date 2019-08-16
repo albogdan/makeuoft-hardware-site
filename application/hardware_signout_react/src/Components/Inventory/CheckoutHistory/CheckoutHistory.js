@@ -7,21 +7,22 @@ import Tag from './Tag';
 
 export default class CheckoutHistory extends PureComponent {
     render() {
-        let { close } = this.props;
+        let { close, event } = this.props;
         return (
-            <div className={styles.popup}>
+            
+            <div className={styles.overlay}>
+                <div className={styles.popup} onClick={close}></div>
                 <div className={styles.history}>
                     <Close onClick={close} />
                     <div className={styles.historyLeft}>
-                        <Component item="Arduino" total={36} left={0}  isCheckout={true} />
+                        <Component item={event.item} total={event.total} left={event.left} isCheckout={true} />
 
-                         <div className={styles.historyLeftTags}>
+                        <div className={styles.historyLeftTags}>
                             <p className={styles.historyLeftTagsTag}>Tags:</p>
                             <div className={styles.historyLeftTagsList}>
-                                <Tag>Boards</Tag>
-                                <Tag>Blah</Tag>
-                                <Tag>Blah</Tag>
-                                <Tag>Blah</Tag>
+                                {event.tags.map((item, i) =>
+                                    <Tag>{item}</Tag>
+                                )}
                             </div>
                         </div>
                     </div>
@@ -37,7 +38,10 @@ export default class CheckoutHistory extends PureComponent {
                         <ListItem number={2} members={["Lisa", "Karen", "Alex", "Martin"]} quantity={5} time="March 29, 9:45 PM" />
                         <ListItem number={3} members={["Lisa", "Karen", "Alex", "Martin"]} quantity={5} time="March 29, 9:45 PM" />
                         <ListItem number={4} members={["Lisa", "Karen", "Alex", "Martin"]} quantity={5} time="March 29, 9:45 PM" />
-
+                        <ListItem number={1} members={["Lisa Li", "Karen Zhao", "Alex Bogdan", "Martin Ffrench"]} quantity={5} time="March 29, 9:45 PM" />
+                        <ListItem number={2} members={["Lisa", "Karen", "Alex", "Martin"]} quantity={5} time="March 29, 9:45 PM" />
+                        <ListItem number={3} members={["Lisa", "Karen", "Alex", "Martin"]} quantity={5} time="March 29, 9:45 PM" />
+                        <ListItem number={4} members={["Lisa", "Karen", "Alex", "Martin"]} quantity={5} time="March 29, 9:45 PM" />
                     </div>
                 </div>
             </div>
