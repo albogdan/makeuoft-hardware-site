@@ -16,7 +16,7 @@ html {
   font-size: 62.5%; 
   height: 100%;
 
-  @include response(lg) {
+  @include response(lg/md) {
       font-size: 50%; 
   }
 }
@@ -48,13 +48,13 @@ h1 {
   font-weight: 600;
   font-size: size(md);
   text-align: center;
-  letter-spacing: 2.4px;
+  letter-spacing: 2px;
 }
 h2 {
   font-size: size(md);
   color: color(black);
   font-weight: normal;
-  letter-spacing: 2.4px;
+  letter-spacing: 2px;
 }
 
 h3 {

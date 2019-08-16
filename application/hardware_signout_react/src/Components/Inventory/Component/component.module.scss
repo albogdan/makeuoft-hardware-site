@@ -7,9 +7,17 @@
     border-radius: 4px;
     position: relative;
     margin: 7px;
-    padding: 1px;
-    transition: all .2s;
     cursor: pointer;
+    width: 174px;
+    flex: 1;
+    height: 248px;
+
+    @include flexPosition(flex-start, center);
+    flex-direction: column;
+
+    @include response(lg/md) {
+        height: 222px;
+    }
 
     img {
         border-radius: 4px 4px 0 0;
@@ -19,14 +27,17 @@
     }
 
     &Div {
-        @include flexPosition;
+        @include flexPosition(center, center);
         flex-direction: column;
         width: 100%;
-        padding: 8px 0;
+        padding: .8rem 1rem;
+        background: #FFFFFF;
+        transition: all .2s;
+        height: 100%;
 
         &Name {
             font-weight: 600;
-            font-size: size(xs) - .2rem;
+            font-size: size(xxs) + 2px;
             line-height: 18px;
             text-align: center;
             color: color(dark);
@@ -35,13 +46,16 @@
 
         &Stock {
             text-align: center;
-            font-size: size(xs) - .4rem;
+            font-size: size(xxs);
             color: color(dark);
         }
-    }
 
+    }
     &:hover {
-        background-color: color(lightgrey);
+        .componentDiv {
+            background-color: color(lightgrey);
+        }
+        
     }
 }
 

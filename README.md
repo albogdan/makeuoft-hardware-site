@@ -10,10 +10,7 @@ In terminal (make sure you're in the hardware-site folder):
 cd application/hardware_signout_react
 npm install
 npm start
-```
-When working on the site, use the local host created by the npm start ^.
 
-```bash
 cd .. .. ..
 python3 -m venv venv
 source venv/bin/activate
@@ -27,7 +24,6 @@ In terminal (make sure you're in the hardware-site folder):
 source venv/bin/activate
 python main.py
 cd application/hardware_signout_react
-npm install
 npm start
 ```
 

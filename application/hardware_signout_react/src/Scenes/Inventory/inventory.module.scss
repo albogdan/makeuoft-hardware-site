@@ -8,6 +8,11 @@
     @include flexPosition(flex-start,flex-start);
     flex-direction: column;
 
+    @include response(lg/md) {
+        width: 100%;
+        padding: 0 6rem;   
+    }
+
     h1 {
         margin: 17px 0 5px 7px;
         font-size: size(md);
@@ -24,7 +29,7 @@
             border-radius: 1.6px;
             color: color(white);
             border: none;
-            font-size: size(xs) - .4rem;
+            font-size: size(xxs);
             font-weight: 600;
             margin: 7px;
             padding: .5rem 1rem;
@@ -49,5 +54,10 @@
         margin-top: 1rem;
         z-index: 1;
         position: relative;
+
+        &Loading {
+            font-size: size(sm);
+            margin: 2rem;
+        }
     }
 }

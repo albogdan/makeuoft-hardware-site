@@ -28,11 +28,9 @@ export default class Inventory extends PureComponent {
     this.setState({popup: false});
   }
 
-
   renderPopupComponent = (event) => {
     this.setState({popupComponent: event})
   }
-
 
   render() {
     let { active, popup, popupComponent, components } = this.state;
@@ -56,16 +54,14 @@ export default class Inventory extends PureComponent {
         <div className={styles.inventoryList}>
 
           {inventoryDataRecevied ? (
-            <p>Loading...</p>
+            <p className={styles.inventoryListLoading}>Loading...</p>
           ) : (
             components.map((item, i) => {
               return (
-                <Component item={item.name}total={item.total} left={item.available} open={ () => {this.openPopup(); this.renderPopupComponent(item)}} />
+                <Component item={item.name} total={item.total} left={item.available} open={ () => {this.openPopup(); this.renderPopupComponent(item)}} />
               )
             })
           )}
-
-
         </div>
       </div>
 

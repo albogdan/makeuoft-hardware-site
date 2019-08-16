@@ -9,7 +9,7 @@ export default class Component extends PureComponent {
 
         return (
             <div className={`${styles.component} ${isCheckout ? styles['checkout'] : null}`} onClick={open}>
-                <img src={require('./../../../Assets/Images/Components/' + 'Arduino' + '.jpg')} alt={item} ></img>
+                <img src={require('./../../../Assets/Images/Components/' + 'Arduino' + '.jpg')} alt={item} />
                 <div className={styles.componentDiv}>
                 <p className={styles.componentDivName}>{item}</p>
                 {(left > 0) &&

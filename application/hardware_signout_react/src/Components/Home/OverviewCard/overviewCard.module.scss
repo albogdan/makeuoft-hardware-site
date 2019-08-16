@@ -4,7 +4,7 @@
 .overview {
     @include flexPosition(center, center);
     border-radius: 4px;
-    width: 30%;
+    flex: 1;
     margin: 7px;
     font-size: size(xl);
     font-weight: bold;

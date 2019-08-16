@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { ReactComponent as Logo } from './../../../Assets/Images/Icons/logo.svg';
 import { ReactComponent as Home } from './../../../Assets/Images/Icons/house logo.svg';
 import { ReactComponent as Team } from './../../../Assets/Images/Icons/team logo.svg';
-import { ReactComponent as AddTeam } from './../../../Assets/Images/Icons/add logo.svg';
+import { ReactComponent as Inventory } from './../../../Assets/Images/Icons/inventory.svg';
 import { ReactComponent as Checkout } from './../../../Assets/Images/Icons/cart logo.svg';
 
 export default class Navbar extends PureComponent {
@@ -18,10 +18,10 @@ export default class Navbar extends PureComponent {
                         <Home />
                     </Link>
                     
-                    <Team />
+                    {/* <Team /> */}
 
                     <Link to={'/inventory'}>
-                        <AddTeam />
+                        <Inventory />
                     </Link>
 
                     <Link to={'/checkout'}>
