@@ -109,7 +109,8 @@ class Tag(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     tag_name = db.Column(db.String(255), index=True, nullable=False)
 
-
+# Many 2 many:
+# https://www.reddit.com/r/flask/comments/6p359d/flask_sqlalchemy_many_to_many_xpost_rlearnpython/
 
 
 """
