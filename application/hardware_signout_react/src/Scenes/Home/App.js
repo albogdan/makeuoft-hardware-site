@@ -24,10 +24,6 @@ export default class App extends PureComponent {
       test: undefined
     };
   }
-  async componentDidMount() {
-    let testRequest = await fetch('http://localhost:8080/api/test');
-    this.setState({ test: testRequest});
-  }
 
   openPopup() {
     this.setState({popup: true});

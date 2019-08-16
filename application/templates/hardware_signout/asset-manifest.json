@@ -1,17 +1,25 @@
 {
   "files": {
-    "main.css": "/static/css/main.7cf5cfff.chunk.css",
-    "main.js": "/static/js/main.d5b0584e.chunk.js",
-    "main.js.map": "/static/js/main.d5b0584e.chunk.js.map",
+    "main.css": "/static/css/main.92fdd42e.chunk.css",
+    "main.js": "/static/js/main.8c875ae0.chunk.js",
+    "main.js.map": "/static/js/main.8c875ae0.chunk.js.map",
     "runtime~main.js": "/static/js/runtime~main.c8d9c486.js",
     "runtime~main.js.map": "/static/js/runtime~main.c8d9c486.js.map",
-    "static/js/2.f7cffbb4.chunk.js": "/static/js/2.f7cffbb4.chunk.js",
-    "static/js/2.f7cffbb4.chunk.js.map": "/static/js/2.f7cffbb4.chunk.js.map",
+    "static/css/2.ee687732.chunk.css": "/static/css/2.ee687732.chunk.css",
+    "static/js/2.becebeb8.chunk.js": "/static/js/2.becebeb8.chunk.js",
+    "static/js/2.becebeb8.chunk.js.map": "/static/js/2.becebeb8.chunk.js.map",
     "index.html": "/index.html",
-    "precache-manifest.a4a5c713db8c5ad92360ef0aa1611061.js": "/precache-manifest.a4a5c713db8c5ad92360ef0aa1611061.js",
+    "precache-manifest.1ed0f4845ffed092c01aa3d7b372d496.js": "/precache-manifest.1ed0f4845ffed092c01aa3d7b372d496.js",
     "service-worker.js": "/service-worker.js",
-    "static/css/main.7cf5cfff.chunk.css.map": "/static/css/main.7cf5cfff.chunk.css.map",
-    "static/media/Arduino.png": "/static/media/Arduino.577f8a61.png",
+    "static/css/2.ee687732.chunk.css.map": "/static/css/2.ee687732.chunk.css.map",
+    "static/css/main.92fdd42e.chunk.css.map": "/static/css/main.92fdd42e.chunk.css.map",
+    "static/media/Arduino.jpg": "/static/media/Arduino.9681aad9.jpg",
+    "static/media/Electron.jpg": "/static/media/Electron.1ac289e6.jpg",
+    "static/media/LED - blue.jpg": "/static/media/LED - blue.93fdab14.jpg",
+    "static/media/LaunchPad.jpg": "/static/media/LaunchPad.b78ec1f8.jpg",
+    "static/media/NodeMCU.jpg": "/static/media/NodeMCU.0eb8cfbf.jpg",
+    "static/media/Photon Board.jpg": "/static/media/Photon Board.a1d68c77.jpg",
+    "static/media/Raspberry Pi.jpg": "/static/media/Raspberry Pi.023729e7.jpg",
     "static/media/add logo.3428f067.svg": "/static/media/add logo.3428f067.svg",
     "static/media/addTeam.eca3c87e.svg": "/static/media/addTeam.eca3c87e.svg",
     "static/media/alert.dbe00ab9.svg": "/static/media/alert.dbe00ab9.svg",
@@ -21,6 +29,6 @@
     "static/media/house logo.ac77bebf.svg": "/static/media/house logo.ac77bebf.svg",
     "static/media/logo.edf13952.svg": "/static/media/logo.edf13952.svg",
     "static/media/team logo.8bbbcb88.svg": "/static/media/team logo.8bbbcb88.svg",
-    "static/media/x.ceb6665f.svg": "/static/media/x.ceb6665f.svg"
+    "static/media/x.3f1a3159.svg": "/static/media/x.3f1a3159.svg"
   }
 }

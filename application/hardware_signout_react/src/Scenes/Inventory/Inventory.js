@@ -12,7 +12,7 @@ export default class Inventory extends PureComponent {
     this.state = { active: false, popup: false, popupComponent: null, components: null}
     fetch('http://localhost:8080/api/inventory')
       .then(response => response.json())
-      .then(inventory => this.setState({ inventory }));
+      .then(components => this.setState({ components }));
   }
 
   sort(num) {
@@ -36,7 +36,7 @@ export default class Inventory extends PureComponent {
 
   render() {
     let { active, popup, popupComponent, components } = this.state;
-    const inventoryDataRecevied = (inventory===null);
+    const inventoryDataRecevied = (components===null);
     let tagButtons = [];
     for (let i = 1; i < tags.length+1; i++) {
         tagButtons.push(<button onClick={() => this.sort(i)} className={active == i ? styles['active'] : null}>{tags[i-1]}</button>);
