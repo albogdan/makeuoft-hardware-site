@@ -6,9 +6,12 @@ import CheckoutHistory from './../../Components/Inventory/CheckoutHistory/Checko
 export default class Inventory extends PureComponent {
   constructor(props) {
     super(props);
-    this.state = { active: false, popup: false }
+    this.state = { active: false, popup: false, inventory: null}
+    fetch('http://localhost:8080/api/inventory')
+      .then(response => response.json())
+      .then(inventory => this.setState({ inventory }));
   }
-  
+
   // WRITE A SORT FUNCTION
   sort(num) {
     this.setState({ active: num });
@@ -21,16 +24,18 @@ export default class Inventory extends PureComponent {
   closePopup() {
     this.setState({popup: false});
   }
-  
+
   render() {
-    let { active, popup } = this.state;
-    
+    let { active, popup, inventory } = this.state;
+    console.log("1");
+    console.log(inventory);
+    const inventoryDataRecevied = (inventory===null);
     return (
       <div className={styles.inventory}>
-        {popup && 
+        {popup &&
             <CheckoutHistory close={() => {this.closePopup()}}/>
         }
-            
+
         <h1>Inventory</h1>
         <div className={styles.inventoryFilters}>
           <button onClick={() => this.sort(1)} className={active == 1 ? styles['active'] : null}>MCUs</button>
@@ -45,16 +50,19 @@ export default class Inventory extends PureComponent {
         </div>
 
         <div className={styles.inventoryList}>
-          <Component item="Arduino" total={36} left={0} open={ () => {this.openPopup()}} />
-          <Component item="Arduino" total={36} left={16} open={ () => {this.openPopup()}}/>
-          <Component item="Arduino" total={36} left={12} open={ () => {this.openPopup()}}/>
-          <Component item="Arduino" total={36} left={6} open={ () => {this.openPopup()}}/>
-          <Component item="Arduino" total={36} left={29} open={ () => {this.openPopup()}}/>
-          <Component item="Arduino" total={36} left={26} open={ () => {this.openPopup()}} />
-          <Component item="Arduino" total={36} left={0} open={ () => {this.openPopup()}} />
+          {inventoryDataRecevied ? (
+            <p>Loading...</p>
+          ) : (
+            inventory.map((item, i) => {
+              return (
+                <Component item={item.name}total={item.total} left={item.available} open={ () => {this.openPopup()}} />
+              )
+            })
+          )}
+
         </div>
       </div>
-      
+
     )
   }
 }

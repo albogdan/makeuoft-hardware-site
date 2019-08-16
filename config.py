@@ -15,6 +15,7 @@ class DevelopmentConfig(object):
     THREADS_PER_PAGE = 2
     CSRF_ENABLED = True
     SECRET_KEY = "secret"
+    CORS_HEADERS = 'Content-Type'
 
 
 # ProductionConfig class to encapsulate the config varaibles

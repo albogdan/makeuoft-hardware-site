@@ -1,9 +1,10 @@
 #from application import flask_app
 from application.db_models import Users, Teams, PartsAvailable, PartsSignedOut, Tag, tags
 from application import db # import the db instance from application/__init__.py
+from flask import jsonify
 import click
 import os
-
+import json
 """
 Encapsulate the commands in a function to be able to register it with the application
 and pass different parameters if the need arises
@@ -55,13 +56,18 @@ def register(flask_app):
     @seed.command()
     def findsametag():
         # Choose random part
-        part = PartsAvailable.query.all()[45]
-        # Tags for a part
-        part_tag = part.tag_list.all() # This returns a Tag object
+        part = PartsAvailable.query.all()[0]
+        testdict = {}
+        testdict[part.id] = {"name": part.part_name, "manufacturer": part.part_manufacturer,
+                            "total": part.quantity_available, "available":part.quantity_remaining,
+                            "serialnum":part.serial_number, "tags":[tag.tag_name for tag in part.tag_list] }
+        print(jsonify(testdict))
+        # **Tags for a part
+        # **part_tag = part.tag_list.all() # This returns a Tag object
 
-        print(part_tag)
-        # Parts for a tag
-        print(part_tag[0].partsavailable.all())
+        # **print(part_tag)
+        # **Parts for a tag
+        # **print(part_tag[0].partsavailable.all())
         # To get all the tags for a part:
         #print(Tag.query.filter(Tag.partsavailable.any(id=part_tag.id)).all())
 

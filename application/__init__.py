@@ -16,6 +16,9 @@ pymysql.install_as_MySQLdb()
 
 import os
 
+from flask_cors import CORS, cross_origin
+
+
 # Initialize the database instance for storing all the information
 db = SQLAlchemy()
 
@@ -24,6 +27,9 @@ migrate = Migrate()
 
 # Initialize the login instance
 login_manager = LoginManager()
+
+# Initialize CORS instance
+cors = CORS()
 """
  Encapsulate the app in a function in order to be able to initialize it with
  various environment variables for  testing as well as versatility
@@ -52,6 +58,7 @@ def create_app():
         config_class=DevelopmentConfig()
 
 
+    cors.init_app(flask_app)
 
     # Configurations taken from function argument
     flask_app.config.from_object(config_class)
