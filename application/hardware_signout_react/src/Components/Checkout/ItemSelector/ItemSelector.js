@@ -35,7 +35,7 @@ export default class ItemSelector extends PureComponent {
 
     render() {
         let { selectedOption } = this.state;
-        let { type, options, formatGroupLabel, defaultValue, onChange } = this.props;
+        let { type, options, formatGroupLabel, defaultValue, onBlur } = this.props;
         
         let style, placeholder, isClearable;
         if (type === "quantity") {
@@ -55,6 +55,7 @@ export default class ItemSelector extends PureComponent {
             <Select
             value={selectedOption}
             onChange={this.handleChange()}
+            onBlur={onBlur}
             className={style}
             styles={colourStyles}
 

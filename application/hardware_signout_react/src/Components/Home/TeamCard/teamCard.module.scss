@@ -4,21 +4,23 @@
 .card {
     background: #FFFFFF;
     border-radius: 4px;
-    max-width: 20rem;
+    // max-width: 20rem;
     padding-top: 1rem;
     margin: 7px;
-    width: 23%;
     border: 1px solid color(borderGrey);
+    flex: 1;
+    min-width: 20rem;
+    // max-width: 25rem;
 
-    @include response(lg) {
-        width: 30%;
-        max-width: 30rem;
+    // @include response(lg) {
+    //     width: 30%;
+    //     max-width: 30rem;
 
-    }
-    @include response(lg/md) {
-        width: 45%;
-        max-width: 34rem;
-    }
+    // }
+    // @include response(lg/md) {
+    //     width: 45%;
+    //     max-width: 34rem;
+    // }
     
     &Title {
         @include flexPosition;
