@@ -33,12 +33,11 @@ const groupBadgeStyles = {
   textAlign: 'center',
 };
 
-let basket = [];
 
 export default class Checkout extends PureComponent {
   constructor(props) {
     super(props);
-    this.state = { active: false, popup: false, addField: 3 }
+    this.state = { active: false, popup: false, addField: 3, basket: [] }
   }
 
   addField = () => {
@@ -49,24 +48,27 @@ export default class Checkout extends PureComponent {
       array.push(
           <BasketItem component="Arduino" quantity={5} />
       )
-      console.log(array[0])
+      console.log(array)
   };
 
   render() {
     let componentField = [];
-
+    let {basket} = this.state;
+    const basketEmpty = (basket===null);
+    console.log(basket);
     for (var i = 0; i < this.state.addField; i ++) {
       componentField.push(
         <div className={styles.checkoutTableDivItem} key={i}>
           <Close className={styles.checkoutTableDivItemClose} />
-          <ItemSelector type="component" 
+          <ItemSelector type="component"
             options={groupedOptions}
             formatGroupLabel={formatGroupLabel}
             onBlur={() => this.addBasket(basket)}/>
-              
-          <ItemSelector type="quantity" 
+
+          <ItemSelector type="quantity"
             defaultValue={quantity[0].label}
             options={quantity}/>
+
         </div>
       );
     };
@@ -79,10 +81,10 @@ export default class Checkout extends PureComponent {
             <div className={styles.checkoutTable}>
               <p>Team Number</p>
             </div>
-            
+
             <div className={styles.checkoutTableDiv} style={{marginBottom: 40}}>
               <div className={styles.checkoutTableDivItem}>
-                <ItemSelector type="team" 
+                <ItemSelector type="team"
                     options={groupedOptions} />
               </div>
             </div>
@@ -113,12 +115,10 @@ export default class Checkout extends PureComponent {
 
             <div className={styles.checkoutTableDiv}>
               {basket}
-              <BasketItem component="Arduino" quantity={5}/>
-              <BasketItem component="Arduino" quantity={2}/>
-              <BasketItem component="Arduino" quantity={9}/>
+
             </div>
-          </div>     
-        </div>         
+          </div>
+        </div>
       </div>
     )
   }

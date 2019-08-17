@@ -1,23 +1,23 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "79ce1f1d2f656a3aa9f75578c9188fbb",
+    "revision": "8337edcd9896b8cd4901e5bf7e1f8784",
     "url": "/index.html"
   },
   {
-    "revision": "1ae08d9f66a797e26b6d",
+    "revision": "0efc8a442f9eced3c232",
     "url": "/static/css/2.ee687732.chunk.css"
   },
   {
-    "revision": "870ea3d0d30267ce5581",
-    "url": "/static/css/main.7372436a.chunk.css"
+    "revision": "5de758e009df613a0c64",
+    "url": "/static/css/main.b038a07e.chunk.css"
   },
   {
-    "revision": "1ae08d9f66a797e26b6d",
-    "url": "/static/js/2.becebeb8.chunk.js"
+    "revision": "0efc8a442f9eced3c232",
+    "url": "/static/js/2.a2da9102.chunk.js"
   },
   {
-    "revision": "870ea3d0d30267ce5581",
-    "url": "/static/js/main.af437a7a.chunk.js"
+    "revision": "5de758e009df613a0c64",
+    "url": "/static/js/main.8d9d1b55.chunk.js"
   },
   {
     "revision": "0f13189ee160ea848d41",
@@ -52,10 +52,6 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/static/media/Raspberry Pi.023729e7.jpg"
   },
   {
-    "revision": "3428f06796dbd3664a53363c2919bb90",
-    "url": "/static/media/add logo.3428f067.svg"
-  },
-  {
     "revision": "eca3c87ec7e5874b6a0bdebc503eeb82",
     "url": "/static/media/addTeam.eca3c87e.svg"
   },
@@ -64,8 +60,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/static/media/alert.dbe00ab9.svg"
   },
   {
-    "revision": "d2f6e5394b57dabc50a863f558eef0ee",
-    "url": "/static/media/cart logo.d2f6e539.svg"
+    "revision": "b6fdec93accd87fa1493eeae538123f1",
+    "url": "/static/media/cart logo.b6fdec93.svg"
   },
   {
     "revision": "8dc9931bd86a69bb2b1ef474fdcbb85e",
@@ -76,19 +72,27 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/static/media/edit-symbol.6ee73edd.svg"
   },
   {
-    "revision": "ac77bebf742248d3b3370ede1f9ba3d7",
-    "url": "/static/media/house logo.ac77bebf.svg"
+    "revision": "9d19b74e3e638d240633ca0109b99a40",
+    "url": "/static/media/house logo.9d19b74e.svg"
+  },
+  {
+    "revision": "adc3b670f352e01f1b2e4e9fe5c5f64b",
+    "url": "/static/media/inventory.adc3b670.svg"
   },
   {
     "revision": "edf139521190205523bfc2d9d2650c36",
     "url": "/static/media/logo.edf13952.svg"
   },
   {
+    "revision": "bf6151f7f7bc85d1ec795dce0450f93d",
+    "url": "/static/media/logout.bf6151f7.svg"
+  },
+  {
     "revision": "8bbbcb88645e7ce563795648893b511d",
     "url": "/static/media/team logo.8bbbcb88.svg"
   },
   {
-    "revision": "3f1a31592a3314a84952d3bfb559519e",
-    "url": "/static/media/x.3f1a3159.svg"
+    "revision": "c215265d83c153ac2f39fc19a4dae24e",
+    "url": "/static/media/x.c215265d.svg"
   }
 ]);
