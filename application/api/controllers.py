@@ -52,6 +52,28 @@ def teamsAll():
         teamsJSON.append(teamDict)
 
     return jsonify(teamsJSON)
+@api.route('/info', methods=['GET','POST'])
+@cross_origin()
+#@login_required
+def info():
+    # Get a count of all the teams
+    teamCount = len(Teams.query.all())
+    # Get a count of all of the users
+    userCount = len(Users.query.all())
+    # Get a count of all the parts that are available
+    parts_all = PartsAvailable.query.all()
+    parts_all_count = 0
+    for part in parts_all:
+        parts_all_count += part.quantity_available
+    # Get a count of all the parts that are signed out
+    parts_out = len(PartsSignedOut.query.all())
+    returnJSON = {}
+    returnJSON['teamcount'] = teamCount
+    returnJSON['usercount'] = userCount
+    returnJSON['partsall'] = parts_all_count
+    returnJSON['partsout'] = parts_out
+    return jsonify(returnJSON)
+
 """
 [
   {index: 1, members: [{name:"Lisa Li", id: false}, {name: "Alex Bodgan", id: true}, {name: "Martin FFrench", id: true}, {name: "Nhien Tran-Nguyen", id: false}] },

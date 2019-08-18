@@ -11,11 +11,15 @@ export default class App extends PureComponent {
     this.state = {
       popup: false,
       test: undefined,
-      teams: null
+      teams: null,
+      info: null
     };
     fetch('http://localhost:8080/api/teamlist')
       .then(response => response.json())
       .then(teams => this.setState({ teams }));
+    fetch('http://localhost:8080/api/info')
+      .then(response => response.json())
+      .then(info => this.setState({ info }));
   }
 
   openPopup() {
@@ -27,8 +31,9 @@ export default class App extends PureComponent {
   }
 
   render() {
-    let { popup, teams } = this.state;
+    let { popup, teams, info } = this.state;
     const teamsDataReceived = (teams===null);
+    const infoDataReceived = (info===null);
 
     return (
       <div className={styles.home}>
@@ -42,9 +47,15 @@ export default class App extends PureComponent {
           <h2>Overview</h2>
 
           <div className={styles.teamList}>
-            <OverviewCard ombre="orange" value={25}/>
-            <OverviewCard ombre="purple" value="16 Teams"/>
-            <OverviewCard ombre="purple" value={16}/>
+            {infoDataReceived ? (
+                <OverviewCard ombre="orange" value="Loading..."/>
+            ) : (
+              <React.Fragment>
+              <OverviewCard ombre="orange" value={ `${info.partsout} / ${info.partsall} parts out` }/>
+              <OverviewCard ombre="purple" value={ `${info.teamcount} Teams` }/>
+              <OverviewCard ombre="purple" value={ `${info.usercount} Participants` }/>
+              </React.Fragment>
+            )}
           </div>
 
         </div>
