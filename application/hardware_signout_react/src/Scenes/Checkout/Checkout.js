@@ -4,6 +4,7 @@ import ItemSelector from '../../Components/Checkout/ItemSelector/ItemSelector';
 import BasketItem from '../../Components/Checkout/BasketItem/BasketItem';
 // import CheckoutCard from '../../Components/Checkout/CheckoutCards/CheckoutCard';
 // import BasketCard from '../../Components/Checkout/CheckoutCards/BasketCard';
+import QuantitySelect from '../../Components/Checkout/ItemSelector/QuantitySelect';
 import { quantity, groupedOptions } from './../../Components/Checkout/CheckoutCards/testData';
 import { ReactComponent as Close } from './../../Assets/Images/Icons/x.svg';
 
@@ -33,44 +34,87 @@ const groupBadgeStyles = {
   textAlign: 'center',
 };
 
+let basket = []
 
 export default class Checkout extends PureComponent {
   constructor(props) {
     super(props);
-    this.state = { active: false, popup: false, addField: 3, basket: [] }
+    this.state = { 
+      addFields: [{name: "", stock: 0}, {name: "", stock: 0}, {name: "", stock: 0}], selectedComponents: [], 
+      selectedField: null }
+    this.getItem = this.getItem.bind(this)
   }
 
-  addField = () => {
-      this.setState({ addField: this.state.addField + 1 });
-  };
+  getItem(evt, index) {
+    this.setState({selectedField: evt})
 
-  addBasket = (array) => {
-      array.push(
-          <BasketItem component="Arduino" quantity={5} />
-      )
-      console.log(array)
-  };
+    this.setState(state => {
+      const addFields = state.addFields.map((item, j) => {
+        if (j === index) {
+          item.stock = evt.stock
+          item.name = evt.label
+          return item;
+        } else {
+          return item;
+        }
+      });
+
+      return {
+        addFields
+      };
+    });
+  }
+
+  addToBasket = (index, quantity) => {
+
+    {quantity && 
+    this.setState(state => {
+      let found = false;
+
+      const selectedComponents = state.selectedComponents.map((item, j) => {
+        if (j === index) {
+          item.name = this.state.addFields[index].name;
+          item.quantityLeft = quantity.label;
+          item.key = quantity.index;
+          found = true;
+          return item;
+        } else {
+          return item;
+        }
+      });
+
+      if (!found) {
+        selectedComponents.push({name: this.state.addFields[index].name, quantityLeft: quantity.label, key: index})
+      }
+
+      return {
+        selectedComponents
+      };
+    });
+    }
+  }
 
   render() {
     let componentField = [];
-    let {basket} = this.state;
-    const basketEmpty = (basket===null);
-    console.log(basket);
-    for (var i = 0; i < this.state.addField; i ++) {
+    let { addFields, selectedComponents } = this.state;
+    const basketEmpty = (basket === null);
+
+    for (var i = 0; i < addFields.length; i ++) {
       componentField.push(
-        <div className={styles.checkoutTableDivItem} key={i}>
+        <div className={styles.checkoutTableDivItem} fieldIndex={i}>
           <Close className={styles.checkoutTableDivItemClose} />
           <ItemSelector type="component"
             options={groupedOptions}
             formatGroupLabel={formatGroupLabel}
-            onBlur={() => this.addBasket(basket)}/>
+            selectItem={this.getItem}
+            fieldIndex={i} />
 
-          <ItemSelector type="quantity"
-            defaultValue={quantity[0].label}
-            options={quantity}/>
-
+          <QuantitySelect 
+            selectQuantity={this.addToBasket} 
+            fieldIndex={i}
+            quantity={addFields[i] ? addFields[i].stock : 0 } />
         </div>
-      );
+     );
     };
 
     return (
@@ -99,7 +143,8 @@ export default class Checkout extends PureComponent {
             <div className={styles.checkoutTableDiv}>
               {componentField}
 
-              <button className={styles.btnOutline} onClick={()=>this.addField()}>Add Component</button>
+              {/* <button className={styles.btnOutline} onClick={()=>this.addField()}>Add Component</button> */}
+              <button className={styles.btnOutline}>Add Component</button>
               <button className={styles.btnFilled} type={"submit"}>Submit</button>
             </div>
           </div>
@@ -114,8 +159,13 @@ export default class Checkout extends PureComponent {
             </div>
 
             <div className={styles.checkoutTableDiv}>
-              {basket}
-
+              {!basketEmpty && 
+                  (selectedComponents || []).map((item, i) => {
+                    return (
+                      <BasketItem component={item.name} quantity={item.quantityLeft} key={item.key} />
+                    )
+                  }
+              )}
             </div>
           </div>
         </div>

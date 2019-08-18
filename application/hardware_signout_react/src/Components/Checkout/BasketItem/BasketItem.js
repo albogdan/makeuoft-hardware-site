@@ -7,9 +7,11 @@ export default class BasketItem extends PureComponent {
         const { component, quantity } = this.props;
 
         return (
-            <div className={styles.basketItem}>
+            <div className={styles.basketItem} >
                 <div className={styles.basketItemItem}>
-                    <img src={require('./../../../Assets/Images/Components/' + component + '.jpg')} alt={component} ></img>
+                    {component && 
+                        <img src={require('./../../../Assets/Images/Components/' + component + '.jpg')} alt={component} ></img>
+                    }
                     <p>{component}</p>
                 </div>
                

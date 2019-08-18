@@ -42,6 +42,7 @@ export default class App extends PureComponent {
         {popup &&
           <CreateTeam close={() => {this.closePopup()}} />
         }
+        <h1 style={{marginTop: 50}}>MakeUofT Hardware Signout</h1>
 
         <div className={styles.overview}>
           <h2>Overview</h2>

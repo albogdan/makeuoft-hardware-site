@@ -1,26 +1,24 @@
 export const MCUs = [
-    { value: 'arduino', label: 'Arduino' },
-    { value: 'launchPad', label: 'LaunchPad'},
-    { value: 'nodeMCU', label: 'NodeMCU' },
-    { value: 'photonBoard', label: 'Photon Board' },
-    { value: 'raspberryPi', label: 'Raspberry Pi' },
-    { value: 'electron', label: 'The Electron' },
-    { value: 'green', label: 'Green' },
+    { value: 'arduino', label: 'Arduino', stock: 5 },
+    { value: 'launchPad', label: 'LaunchPad', stock: 69},
+    { value: 'nodeMCU', label: 'NodeMCU', stock: 6 },
+    { value: 'photonBoard', label: 'Photon Board', stock: 50 },
+    { value: 'raspberryPi', label: 'Raspberry Pi', stock: 21 },
+    { value: 'electron', label: 'The Electron', stock: 1 },
+    { value: 'green', label: 'Green', stock: 9 },
 ];
   
 export const shields = [
-    { value: 'avr', label: 'AVR' },
-    { value: 'bluetoothModule', label: 'Bluetooth Wireless Module' },
-    { value: 'controllerShield', label: 'Controller Shield' },
-    { value: 'gyroscope', label: 'Gyroscope' },
+    { value: 'avr', label: 'AVR', stock: 5 },
+    { value: 'bluetoothModule', label: 'Bluetooth Wireless Module', stock: 29 },
+    { value: 'controllerShield', label: 'Controller Shield', stock: 5 },
+    { value: 'gyroscope', label: 'Gyroscope', stock: 5 },
 ];
 
 export let quantity = [];
 for (let i = 1; i < 16; i++) {
     quantity = quantity.concat({value: i, label: i});
-}
-
-// 
+} 
 
 export const groupedOptions = [
     {
