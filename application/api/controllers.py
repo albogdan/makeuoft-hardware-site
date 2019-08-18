@@ -33,8 +33,30 @@ def inventoryAll():
     return jsonify(partsJSON)
 
 
-"""
+@api.route('/teamlist', methods=['GET','POST'])
+@cross_origin()
+#@login_required
+def teamsAll():
+    # Get a list of all the teams
+    teamList = Teams.query.all()
+    teamsJSON = []
+    # For each team:
+    for team in teamList:
+        teamDict = {}
+        teamDict['index'] = team.id
+        teamDict['members'] = []
+        # For each contestant on that team
+        for teammate in team.team_members.all():
+            name = str(teammate.first_name + ' ' + teammate.last_name)
+            teamDict['members'].append({"name": name, "govt_id": teammate.id_provided, "id": teammate.id})
+        teamsJSON.append(teamDict)
 
+    return jsonify(teamsJSON)
+"""
+[
+  {index: 1, members: [{name:"Lisa Li", id: false}, {name: "Alex Bodgan", id: true}, {name: "Martin FFrench", id: true}, {name: "Nhien Tran-Nguyen", id: false}] },
+  {index: 2, members: [{name:"Lisa Li", id: false}, {name: "Alex Bodgan", id: true}, {name: "Martin FFrench", id: true}, {name: "Nhien Tran-Nguyen", id: false}] }
+  ]
 Requests summary:
  - JSON of teams with contestants in each team, and whether id was provided for each
  - JSON of all the parts signed out w/ a time signed out

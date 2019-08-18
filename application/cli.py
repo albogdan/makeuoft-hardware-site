@@ -5,6 +5,8 @@ from flask import jsonify
 import click
 import os
 import json
+import random
+
 """
 Encapsulate the commands in a function to be able to register it with the application
 and pass different parameters if the need arises
@@ -45,6 +47,53 @@ def register(flask_app):
                     record = Tag(tag_name = i)
                 db.session.add(record)
         db.session.commit()
+
+    @seed.command()
+    def users():
+        """Seeds the Users table with values from Users.csv in the seeds/ folder"""
+        users_csv_path = 'application/seeds/Users.csv'#os.path.join(BASE_DIR, 'FroshGroups.csv')
+        with open(users_csv_path, 'r') as users_csv:
+            for i in users_csv:
+                j = i[:-1].split(',')
+                record = Users(first_name=j[0], last_name=j[1], email=j[2], id_provided = bool(random.getrandbits(1)))
+                record.set_password(j[3])
+                db.session.add(record)
+        db.session.commit()
+
+    @seed.command()
+    def teams():
+        """Seeds the Teams table with values from Teams.csv in the seeds/ folder"""
+        teams_csv_path = 'application/seeds/Teams.csv'#os.path.join(BASE_DIR, 'FroshGroups.csv')
+        userSeeds = Users.query.filter_by().all()
+        #print(userSeeds)
+        with open(teams_csv_path, 'r') as teams_csv:
+            for i in teams_csv:
+                if(i[-1] == '\n'):
+                    record = Teams(team_name = i[:-1])
+                else:
+                    record = Teams(team_name = i)
+                for k in range(0,4):
+                    record.team_members.append(userSeeds[0])
+                    del userSeeds[0]
+                db.session.add(record)
+        db.session.commit()
+
+    @seed.command()
+    def checkteams():
+        teamList = Teams.query.all()
+        print(teamList)
+        for i in teamList:
+            for j in i.team_members.all():
+                print(j.first_name, end='')
+            print()
+    @seed.command()
+    def checkuser():
+        userList = Users.query.all()
+        print(userList)
+        for i in userList:
+            print(i.team, end='') #prints the team number
+            print(Teams.query.filter_by(id=i.team).first().team_name, end='')
+            print()
 
     @seed.command()
     def checkparts():

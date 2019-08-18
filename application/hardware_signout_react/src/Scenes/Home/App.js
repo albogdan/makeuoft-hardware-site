@@ -5,24 +5,17 @@ import AddTeamCard from '../../Components/Home/AddTeamCard/AddTeamCard';
 import OverviewCard from '../../Components/Home/OverviewCard/OverviewCard';
 import CreateTeam from '../../Components/General/CreateTeam/CreateTeam';
 
-const teams = [
-  {index: 1, members: [{name:"Lisa Li", id: false}, {name: "Alex Bodgan", id: true}, {name: "Martin FFrench", id: true}, {name: "Nhien Tran-Nguyen", id: false}] },
-  {index: 2, members: [{name:"Lisa Li", id: false}, {name: "Alex Bodgan", id: true}, {name: "Martin FFrench", id: true}, {name: "Nhien Tran-Nguyen", id: false}] },
-  {index: 3, members: [{name:"Lisa Li", id: false}, {name: "Alex Bodgan", id: true}, {name: "Martin FFrench", id: true}, {name: "Nhien Tran-Nguyen", id: false}] },
-  {index: 4, members: [{name:"Lisa Li", id: false}, {name: "Alex Bodgan", id: true}, {name: "Martin FFrench", id: true}, {name: "Nhien Tran-Nguyen", id: false}] },
-  {index: 5, members: [{name:"Lisa Li", id: false}, {name: "Alex Bodgan", id: true}, {name: "Martin FFrench", id: true}, {name: "Nhien Tran-Nguyen", id: false}] },
-  {index: 6, members: [{name:"Lisa Li", id: false}, {name: "Alex Bodgan", id: true}, {name: "Martin FFrench", id: true}, {name: "Nhien Tran-Nguyen", id: false}] },
-  {index: 7, members: [{name:"Lisa Li", id: false}, {name: "Alex Bodgan", id: true}, {name: "Martin FFrench", id: true}, {name: "Nhien Tran-Nguyen", id: false}] },
-  {index: 8, members: [{name:"Lisa Li", id: false}, {name: "Alex Bodgan", id: true}, {name: "Martin FFrench", id: true}, {name: "Nhien Tran-Nguyen", id: false}] },
-  {index: 9, members: [{name:"Lisa Li", id: false}, {name: "Alex Bodgan", id: true}, {name: "Martin FFrench", id: true}, {name: "Nhien Tran-Nguyen", id: false}] }
-]
 export default class App extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
       popup: false,
-      test: undefined
+      test: undefined,
+      teams: null
     };
+    fetch('http://localhost:8080/api/teamlist')
+      .then(response => response.json())
+      .then(teams => this.setState({ teams }));
   }
 
   openPopup() {
@@ -34,7 +27,8 @@ export default class App extends PureComponent {
   }
 
   render() {
-    let { popup } = this.state;
+    let { popup, teams } = this.state;
+    const teamsDataReceived = (teams===null);
 
     return (
       <div className={styles.home}>
@@ -60,9 +54,14 @@ export default class App extends PureComponent {
 
           <div className={styles.teamList}>
             <AddTeamCard open={() => {this.openPopup()}} />
-
-            {teams.map((item, i) =>
-              <TeamCard teamNumber={item.index} members={item.members}/>
+            {teamsDataReceived ? (
+                <p className={styles.inventoryListLoading}>Loading...</p>
+            ) : (
+              teams.map((item, i) => {
+                return (
+                  <TeamCard teamNumber={item.index} members={item.members}/>
+                )
+              })
             )}
           </div>
         </div>
