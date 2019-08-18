@@ -64,14 +64,20 @@
                 font-size: size(xs);
                 color: color(black);
                 margin-right: 8px;
+            }
+
+            &Label {
                 width: 10rem;
+            }
+            &IDLabel {
+                margin: 0 8px;
             }
 
             select {
                 background: #F5F5F5;
                 border-radius: 1px;
                 width: 100%;
-                -webkit-appearance: none;
+                // -webkit-appearance: none;
                 height: 3rem;
                 outline: none;
             }

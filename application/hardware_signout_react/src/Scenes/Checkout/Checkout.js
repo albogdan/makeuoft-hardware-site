@@ -46,27 +46,28 @@ export default class Checkout extends PureComponent {
   }
 
   getItem(evt, index) {
-    this.setState({selectedField: evt})
+    if (evt != null) {
+      this.setState({selectedField: evt})
 
-    this.setState(state => {
-      const addFields = state.addFields.map((item, j) => {
-        if (j === index) {
-          item.stock = evt.stock
-          item.name = evt.label
-          return item;
-        } else {
-          return item;
-        }
-      });
+      this.setState(state => {
+        const addFields = state.addFields.map((item, j) => {
+          if (j === index) {
+            item.stock = evt.stock
+            item.name = evt.label
+            return item;
+          } else {
+            return item;
+          }
+        });
 
-      return {
-        addFields
-      };
-    });
+        return {
+          addFields
+        };
+      })
+    };
   }
 
   addToBasket = (index, quantity) => {
-
     {quantity && 
     this.setState(state => {
       let found = false;

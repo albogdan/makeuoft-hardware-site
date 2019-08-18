@@ -37,7 +37,6 @@ export default class App extends PureComponent {
 
     return (
       <div className={styles.home}>
-
         {popup &&
           <CreateTeam close={() => {this.closePopup()}} />
         }
@@ -51,13 +50,12 @@ export default class App extends PureComponent {
                 <OverviewCard ombre="orange" value="Loading..."/>
             ) : (
               <React.Fragment>
-              <OverviewCard ombre="orange" value={ `${info.partsout} / ${info.partsall} parts out` }/>
-              <OverviewCard ombre="purple" value={ `${info.teamcount} Teams` }/>
-              <OverviewCard ombre="purple" value={ `${info.usercount} Participants` }/>
+                <OverviewCard ombre="blue" value={ `${info.partsout} / ${info.partsall} parts out` }/>
+                <OverviewCard ombre="orange" value={ `${info.teamcount} Teams` }/>
+                <OverviewCard ombre="purple" value={ `${info.usercount} Participants` }/>
               </React.Fragment>
             )}
           </div>
-
         </div>
 
         <div className={styles.team}>
@@ -77,7 +75,6 @@ export default class App extends PureComponent {
           </div>
         </div>
       </div>
-
     )
   }
 }
