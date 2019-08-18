@@ -24,7 +24,7 @@ export default class ItemSelector extends PureComponent {
 
     render() {
         let { selectedOption } = this.state;
-        let { type, options, formatGroupLabel, id } = this.props;
+        let { type, formatGroupLabel, id } = this.props;
         
         let style = (type === "team") ? styles.team : styles.component;
 

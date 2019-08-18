@@ -2,48 +2,32 @@
 import React, { PureComponent } from 'react';
 import styles from './itemSelector.module.scss';
 import Select from 'react-select';
+import { colourStyles } from './SelectorStyles';
 
-const colourStyles = {
-    control: (styles, state) => ({ 
-        ...styles, 
-        backgroundColor: 'white', 
-        borderColor: state.isFocused ? '#3386BA' :'#ccc',
-        boxShadow: state.isFocused && `0 0 0 1px #3386BA`
-     }),
-    option: (provided, state) => ({
-        ...provided,
-        fontSize: 14,
-    }),
-    placeholder: () => ({ fontSize: 14 }),
-    singleValue: () => ({ fontSize: 14 }),
-    groupHeading: () => ({ fontSize: 12, padding: 12, paddingTop: 0, color: '#3386BA', fontWeight: 'bold' }),
-  };
-  
 export default class BasketItem extends PureComponent {
     constructor(props) {
         super(props);
-        this.state = { selectedOption: null, isClearable: true}
-        this.handleChange = this.handleChange.bind(this)
+        this.state = { selectedOption: null }
     }
 
-    handleChange = selectedOption => {
-        this.setState({ selectedOption });
+    handleChange = evt => {
+        this.setState({ selectedOption: evt });
     };
+
+    componentWillUpdate(nextProps, nextState) {
+        if ((this.props.selectedHardware) && (this.props.selectedHardware.label !== nextProps.selectedHardware.label)) {
+            this.setState({ selectedOption: null });
+        }
+    }
    
     render() {
-        let {selectQuantity, quantity, fieldIndex, reset } = this.props
-        let { selectedOption } = this.state;
-        
-        let options = [];
-        for (let i = 1; i < quantity+1; i++) {
-            options.push({value: i, label: i});
-        }
+        let {selectQuantity, fieldIndex, options, selectedValue, onChange } = this.props
 
         return (
             <Select
-                value={selectedOption}
-                onChange={this.handleChange}
-                onBlur={(index, quantity) => selectQuantity(fieldIndex, selectedOption)}
+                value={selectedValue}
+                onChange={(evt) => {this.handleChange(); onChange(evt, fieldIndex)}}
+                onBlur={selectQuantity(fieldIndex)}
                 className={styles.quantity}
                 styles={colourStyles}
                 options={options}

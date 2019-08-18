@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react'
 import styles from './checkoutHistory.module.scss';
-import {ReactComponent as Close } from './../../../Assets/Images/Icons/x.svg'
-import Component from './../Component/Component'
+// import {ReactComponent as Close } from './../../../Assets/Images/Icons/x.svg'
+// import Component from './../Component/Component'
 
 export default class CheckoutHistoryListItem extends PureComponent {
     render() {

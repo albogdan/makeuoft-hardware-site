@@ -8,51 +8,48 @@ import QuantitySelect from '../../Components/Checkout/ItemSelector/QuantitySelec
 import { quantity, groupedOptions } from './../../Components/Checkout/CheckoutCards/testData';
 import { ReactComponent as Close } from './../../Assets/Images/Icons/x.svg';
 
-const formatGroupLabel = data => (
-  <div style={groupStyles}>
-      <span>{data.label}</span>
-      <span style={groupBadgeStyles}>{data.options.length}</span>
-  </div>
-);
-
-const groupStyles = {
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'space-between',
-};
-
-const groupBadgeStyles = {
-  backgroundColor: '#EBECF0',
-  borderRadius: '2em',
-  color: '#172B4D',
-  display: 'inline-block',
-  fontSize: 12,
-  fontWeight: 'normal',
-  lineHeight: '1',
-  minWidth: 1,
-  padding: '0.17em 0.5em',
-  textAlign: 'center',
-};
-
 let basket = []
 
 export default class Checkout extends PureComponent {
   constructor(props) {
     super(props);
     this.state = { 
-      addFields: [{name: "", stock: 0}, {name: "", stock: 0}, {name: "", stock: 0}], selectedComponents: [], 
-      selectedField: null }
-    this.getItem = this.getItem.bind(this)
+      checkoutFields: [{name: "", selectOptions: [], selectedQuantity: {value: null}}, {name: "", selectOptions: [], selectedQuantity: {value: null}}, {name: "", selectOptions: [], selectedQuantity: {value: null}}], 
+      basketHardwares: [], 
+      selectedHardware: null}
+    this.getSelectedHardware = this.getSelectedHardware.bind(this)
+    this.changeQuantity = this.changeQuantity.bind(this)
+    this.deleteCheckoutField = this.deleteCheckoutField.bind(this)
   }
 
-  getItem(evt, index) {
-    if (evt != null) {
-      this.setState({selectedField: evt})
+  changeQuantity = (evt, index) => {
+    this.setState(state => {
+      const checkoutFields = state.checkoutFields.map((item, j) => {
+        if (j === index) {
+          item.selectedQuantity = evt
+          return item;
+        } else {
+          return item;
+        }
+      });
 
+      return {
+        checkoutFields
+      };
+    })
+  }
+
+  getSelectedHardware(evt, index) {
+    if (evt != null) {
+      this.setState({selectedHardware: evt})
       this.setState(state => {
-        const addFields = state.addFields.map((item, j) => {
+        const checkoutFields = state.checkoutFields.map((item, j) => {
           if (j === index) {
-            item.stock = evt.stock
+            item.selectOptions.length = 0;
+            item.selectedQuantity = null;
+            for (let i = 1; i < evt.stock + 1; i++) {
+              item.selectOptions.push({value: i, label: i});
+            }
             item.name = evt.label
             return item;
           } else {
@@ -61,61 +58,100 @@ export default class Checkout extends PureComponent {
         });
 
         return {
-          addFields
+          checkoutFields
         };
       })
     };
   }
 
-  addToBasket = (index, quantity) => {
-    {quantity && 
-    this.setState(state => {
-      let found = false;
+  addToBasket = (index) => {
+    {this.state.checkoutFields[index].selectedQuantity && 
+      this.setState(state => {
+        let found = false;
 
-      const selectedComponents = state.selectedComponents.map((item, j) => {
-        if (j === index) {
-          item.name = this.state.addFields[index].name;
-          item.quantityLeft = quantity.label;
-          item.key = quantity.index;
-          found = true;
-          return item;
-        } else {
-          return item;
+        const basketHardwares = state.basketHardwares.map((item, j) => {
+          if (j === index) {
+            item.name = this.state.checkoutFields[index].name;
+            item.selectedQuantity = this.state.checkoutFields[index].selectedQuantity.value;
+            item.key = index;
+            found = true;
+            return item;
+          } else {
+            return item;
+          }
+        });
+
+        if (!found) {
+          basketHardwares.push({name: this.state.checkoutFields[index].name, selectedQuantity: quantity.value, key: index})
         }
-      });
 
-      if (!found) {
-        selectedComponents.push({name: this.state.addFields[index].name, quantityLeft: quantity.label, key: index})
-      }
+        return {
+          basketHardwares
+        };
+      });
+    }
+  }
+
+  deleteCheckoutField = index => {
+    console.log("index", index);
+    const { checkoutFields, basketHardwares } = this.state;
+    // console.log("yoooooo")
+    // checkoutFields.splice(index-1, 1);
+    // basketHardwares.splice(index-1, 1);
+    // console.log("index", index-1);
+    // console.log("checkoutFields", checkoutFields);
+    // console.log("basketHardwares", basketHardwares);
+
+    this.setState(state => {
+      const checkoutFields = state.checkoutFields.filter((item, j) => (index-1) !== j);
 
       return {
-        selectedComponents
+        checkoutFields
       };
     });
-    }
+    this.setState(state => {
+      const basketHardwares = state.basketHardwares.filter((item, j) => (index-1) !== j);
+
+      return {
+        basketHardwares
+      };
+    });
+
+  }
+
+  addField () {
+    this.setState(state => {
+      const checkoutFields = state.checkoutFields.concat({name: "", selectOptions: [], selectedQuantity: {value: null}});
+
+      return {
+        checkoutFields
+      };
+    });
   }
 
   render() {
     let componentField = [];
-    let { addFields, selectedComponents } = this.state;
+    let { checkoutFields, basketHardwares, selectedHardware } = this.state;
     const basketEmpty = (basket === null);
-
-    for (var i = 0; i < addFields.length; i ++) {
+    
+    for (var i = 0; i < checkoutFields.length; i ++) {
       componentField.push(
         <div className={styles.checkoutTableDivItem} fieldIndex={i}>
-          <Close className={styles.checkoutTableDivItemClose} />
+          <Close className={styles.checkoutTableDivItemClose} onClick={(i) => this.deleteCheckoutField(i)}/>
           <ItemSelector type="component"
             options={groupedOptions}
-            formatGroupLabel={formatGroupLabel}
-            selectItem={this.getItem}
+            selectItem={this.getSelectedHardware}
             fieldIndex={i} />
 
           <QuantitySelect 
             selectQuantity={this.addToBasket} 
             fieldIndex={i}
-            quantity={addFields[i] ? addFields[i].stock : 0 } />
+            onChange = {this.changeQuantity}
+            selectedHardware={selectedHardware}
+            selectedValue={checkoutFields[i].selectedQuantity} 
+            options={checkoutFields[i].selectOptions} />
         </div>
-     );
+      );
     };
 
     return (
@@ -144,8 +180,8 @@ export default class Checkout extends PureComponent {
             <div className={styles.checkoutTableDiv}>
               {componentField}
 
-              {/* <button className={styles.btnOutline} onClick={()=>this.addField()}>Add Component</button> */}
-              <button className={styles.btnOutline}>Add Component</button>
+              <button className={styles.btnOutline} onClick={()=>this.addField()}>Add Component</button>
+              {/* <button className={styles.btnOutline}>Add Component</button> */}
               <button className={styles.btnFilled} type={"submit"}>Submit</button>
             </div>
           </div>
@@ -161,9 +197,9 @@ export default class Checkout extends PureComponent {
 
             <div className={styles.checkoutTableDiv}>
               {!basketEmpty && 
-                  (selectedComponents || []).map((item, i) => {
+                  (basketHardwares || []).map((item, i) => {
                     return (
-                      <BasketItem component={item.name} quantity={item.quantityLeft} key={item.key} />
+                      <BasketItem component={item.name} quantity={item.selectedQuantity} key={item.key} />
                     )
                   }
               )}

@@ -2,7 +2,15 @@ import React, { PureComponent } from 'react';
 import styles from './itemSelector.module.scss';
 import Select from 'react-select';
 import { colourStyles } from './SelectorStyles'
-  
+import { groupStyles, groupBadgeStyles } from './SelectorStyles'
+
+const formatGroupLabel = data => (
+    <div style={groupStyles}>
+        <span>{data.label}</span>
+        <span style={groupBadgeStyles}>{data.options.length}</span>
+    </div>
+);
+
 export default class ItemSelector extends PureComponent {
     constructor(props) {
         super(props);
@@ -16,7 +24,7 @@ export default class ItemSelector extends PureComponent {
 
     render() {
         let { selectedOption } = this.state;
-        let { type, options, formatGroupLabel, defaultValue, selectItem, fieldIndex } = this.props;
+        let { type, options, defaultValue, selectItem, fieldIndex } = this.props;
         
         let style = (type === "team") ? styles.team : styles.component;
 
