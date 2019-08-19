@@ -36,10 +36,7 @@ export default class Checkout extends PureComponent {
           return item;
         }
       });
-
-      return {
-        checkoutFields
-      };
+      return { checkoutFields };
     })
   }
 
@@ -60,10 +57,7 @@ export default class Checkout extends PureComponent {
             return item;
           }
         });
-
-        return {
-          checkoutFields
-        };
+        return { checkoutFields};
       })
     };
   }
@@ -84,20 +78,16 @@ export default class Checkout extends PureComponent {
             return item;
           }
         });
-
         if (!found) {
           basketHardwares.push({name: this.state.checkoutFields[index].name, selectedQuantity: quantity.value, key: index})
         }
-
-        return {
-          basketHardwares
-        };
+        return { basketHardwares };
       });
     }
   }
 
-  deleteCheckoutField = index => {
-    console.log("index", index);
+  deleteCheckoutField = indexL => {
+    console.log("index", indexL);
     const { checkoutFields, basketHardwares } = this.state;
     // console.log("yoooooo")
     // checkoutFields.splice(index-1, 1);
@@ -107,18 +97,12 @@ export default class Checkout extends PureComponent {
     // console.log("basketHardwares", basketHardwares);
 
     this.setState(state => {
-      const checkoutFields = state.checkoutFields.filter((item, j) => (index-1) !== j);
-
-      return {
-        checkoutFields
-      };
+      const checkoutFields = state.checkoutFields.filter((item, j) => (indexL-1) !== j);
+      return { checkoutFields };
     });
     this.setState(state => {
-      const basketHardwares = state.basketHardwares.filter((item, j) => (index-1) !== j);
-
-      return {
-        basketHardwares
-      };
+      const basketHardwares = state.basketHardwares.filter((item, j) => (indexL-1) !== j);
+      return { basketHardwares };
     });
 
   }
@@ -142,7 +126,7 @@ export default class Checkout extends PureComponent {
     for (var i = 0; i < checkoutFields.length; i ++) {
       componentField.push(
         <div className={styles.checkoutTableDivItem} fieldIndex={i}>
-          <Close className={styles.checkoutTableDivItemClose} onClick={(i) => this.deleteCheckoutField(i)}/>
+          <Close className={styles.checkoutTableDivItemClose} onClick={(indexL) => this.deleteCheckoutField(i)}/>
           <ItemSelector type="component"
             options={groupedOptions}
             selectItem={this.getSelectedHardware}
@@ -181,17 +165,15 @@ export default class Checkout extends PureComponent {
             </div>
 
             <h2>Checkout</h2>
-
             <div className={styles.checkoutTable}>
               <p>Component</p>
               <p>Quantity</p>
             </div>
-
             <div className={styles.checkoutTableDiv}>
               {componentField}
 
               <button className={styles.btnOutline} onClick={()=>this.addField()}>Add Component</button>
-              <button className={styles.btnFilled} type={"submit"} style={{marginBottom: 100}}>Submit</button>
+              <button className={styles.btnFilled} type={"submit"} style={{marginBottom: "30vh"}}>Submit</button>
             </div>
           </div>
         </div>
@@ -212,6 +194,7 @@ export default class Checkout extends PureComponent {
                     )
                   }
               )}
+              {/* <p>Team</p> */}
             </div>
           </div>
         </div>
