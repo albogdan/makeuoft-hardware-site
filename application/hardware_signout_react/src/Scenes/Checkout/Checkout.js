@@ -161,7 +161,7 @@ export default class Checkout extends PureComponent {
     for (var i = 0; i < checkoutFields.length; i ++) {
       componentField.push(
         <div className={styles.checkoutTableDivItem} fieldIndex={i}>
-          <Close className={styles.checkoutTableDivItemClose} onClick={(indexL) => this.deleteCheckoutField(i)}/>
+          <Close className={styles.checkoutTableDivItemClose} onClick={() => this.deleteCheckoutField(i)}/>
           <ItemSelector type="component"
             options={groupedOptions}
             selectItem={this.getSelectedHardware}
@@ -230,7 +230,7 @@ export default class Checkout extends PureComponent {
                   }
               )}
 
-              {/* {console.log("basket", basketHardwares)} */}
+              {console.log("basket", basketHardwares)}
               {/* <p>Team</p> */}
             </div>
           </div>

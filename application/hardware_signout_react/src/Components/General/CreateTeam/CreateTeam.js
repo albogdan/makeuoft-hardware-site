@@ -4,12 +4,10 @@ import styles from './createTeam.module.scss';
 import AddTeamSelector from './../../Checkout/ItemSelector/AddTeamSelector';
 import {ReactComponent as Close } from './../../../Assets/Images/Icons/x.svg'
 
-
 export default class CreateTeam extends PureComponent {
     constructor(props) {
       super(props);
-      this.state = {
-      }
+      this.state = { addTeamMembers: [] }
     }
     addTeam(){
       // console.log("Team to checkout:", this.state.selectedTeam.value);
@@ -38,6 +36,12 @@ export default class CreateTeam extends PureComponent {
       //   });
 
     }
+
+    addToTeam = (evt, index) => {
+        console.log("yeet", evt);
+    }
+
+
     render() {
         let { close } = this.props;
 
@@ -46,7 +50,12 @@ export default class CreateTeam extends PureComponent {
             memberField.push(
                 <div className={styles.popupCardMember}>
                     <label for={`member-${i}`} className={styles.popupCardMemberLabel}>Member {i}:</label>
-                    <AddTeamSelector id={`member-${i}`} />
+                    <AddTeamSelector 
+                        id={`member-${i}`}
+                        index={i}
+                        addToTeam = {this.addToTeam}
+                         
+                        />
                     <label for={`id-${i}`} className={styles.popupCardMemberIDLabel}>ID: </label>
                     <input type="checkbox" id={`id-${i}`} />
                 </div>
