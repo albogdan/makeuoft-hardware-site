@@ -122,6 +122,17 @@ def itemCheckout():
     #print(request.data)
     return jsonify({"status": "success", "message": "all parts recorded successfully"})
 
+@api.route('/addteam/getparticipants', methods=['GET', 'POST'])
+@cross_origin()
+#@login_required
+def usersNotOnTeam():
+    users_no_team = Users.query.filter(Users.team==None).all()
+    usersJSON = []
+    for user in users_no_team:
+        if(user.team==None):
+            usersJSON.append({"id": user.id, "label": str(user.first_name + " " + user.last_name)})
+
+    return jsonify(usersJSON)
 """
 [
   {index: 1, members: [{name:"Lisa Li", id: false}, {name: "Alex Bodgan", id: true}, {name: "Martin FFrench", id: true}, {name: "Nhien Tran-Nguyen", id: false}] },

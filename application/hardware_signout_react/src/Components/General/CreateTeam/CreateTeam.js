@@ -6,6 +6,38 @@ import {ReactComponent as Close } from './../../../Assets/Images/Icons/x.svg'
 
 
 export default class CreateTeam extends PureComponent {
+    constructor(props) {
+      super(props);
+      this.state = {
+      }
+    }
+    addTeam(){
+      // console.log("Team to checkout:", this.state.selectedTeam.value);
+      // console.log("ITEMS TO DO:", this.state.basketHardwares);
+      // var itemList = [];
+      // for(var i=0; i<this.state.basketHardwares.length; i++){
+      //   itemList.push({"name": this.state.basketHardwares[i].name,
+      //                  "quantity":this.state.basketHardwares[i].selectedQuantity });
+      // }
+      //
+      // var data = {
+      //   "team" : this.state.selectedTeam.value,
+      //   "items" :  itemList
+      // }
+      // console.log("DATA", data);
+      //
+      // fetch('http://localhost:80/api/checkoutitems', {
+      //   method: "POST",
+      //   body:JSON.stringify(data)
+      // })
+      //   .then(function(response) {
+      //     console.log(response);
+      //   })
+      //   .then(function(data){
+      //     console.log(data);
+      //   });
+
+    }
     render() {
         let { close } = this.props;
 

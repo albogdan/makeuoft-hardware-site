@@ -76,7 +76,7 @@ def register(flask_app):
         teams_csv_path = 'application/seeds/Teams.csv'#os.path.join(BASE_DIR, 'FroshGroups.csv')
         userSeeds = Users.query.filter_by().all()
         #print(userSeeds)
-        for i in range(0, len(userSeeds)//Teams.max_members):
+        for i in range(0, 5):#len(userSeeds)//Teams.max_members):
             record = Teams()
             for k in range(0,4):
                 record.team_members.append(userSeeds[0])
@@ -132,3 +132,9 @@ def register(flask_app):
         #part_ids = tags.query.filter_by(tag_id=part_tag.id)
         #print(part_ids)
         #print(PartsAvailable.query.filter(tags.c.tag_id==part_tag.id).all())
+
+    @seed.command()
+    def usersnoteam():
+        users_no_team = Users.query.filter(Users.team==None).all()
+        for i in users_no_team:
+            print(i.team)
