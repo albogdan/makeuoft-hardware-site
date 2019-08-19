@@ -131,8 +131,25 @@ def usersNotOnTeam():
     for user in users_no_team:
         if(user.team==None):
             usersJSON.append({"id": user.id, "label": str(user.first_name + " " + user.last_name)})
-
     return jsonify(usersJSON)
+
+
+## ADD A CHECK FOR MINIMUM 2 PEOPLE, ALSO ADD GOVT_IDS
+@api.route('/addteam/addrecord', methods=['GET', 'POST'])
+@cross_origin()
+#@login_required
+def addrecord():
+    data = json.loads(request.data)
+    newTeam = Teams()
+    for user in data:
+        userDBEntry = Users.query.filter_by(id=user['id']).first()
+        print(userDBEntry)
+        newTeam.team_members.append(userDBEntry)
+    db.session.add(newTeam)
+    db.session.commit()
+    return jsonify({"status": "success", "message": "new team created successfully"})
+
+
 """
 [
   {index: 1, members: [{name:"Lisa Li", id: false}, {name: "Alex Bodgan", id: true}, {name: "Martin FFrench", id: true}, {name: "Nhien Tran-Nguyen", id: false}] },

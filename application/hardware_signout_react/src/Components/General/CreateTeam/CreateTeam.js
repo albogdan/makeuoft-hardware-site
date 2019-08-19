@@ -10,35 +10,23 @@ export default class CreateTeam extends PureComponent {
       this.state = { addTeamMembers: [] }
     }
     addTeam(){
-      // console.log("Team to checkout:", this.state.selectedTeam.value);
-      // console.log("ITEMS TO DO:", this.state.basketHardwares);
-      // var itemList = [];
-      // for(var i=0; i<this.state.basketHardwares.length; i++){
-      //   itemList.push({"name": this.state.basketHardwares[i].name,
-      //                  "quantity":this.state.basketHardwares[i].selectedQuantity });
-      // }
-      //
-      // var data = {
-      //   "team" : this.state.selectedTeam.value,
-      //   "items" :  itemList
-      // }
-      // console.log("DATA", data);
-      //
-      // fetch('http://localhost:80/api/checkoutitems', {
-      //   method: "POST",
-      //   body:JSON.stringify(data)
-      // })
-      //   .then(function(response) {
-      //     console.log(response);
-      //   })
-      //   .then(function(data){
-      //     console.log(data);
-      //   });
+        console.log(this.state.addTeamMembers);
+
+        fetch('http://localhost:8080/api/addteam/addrecord', {
+          method: "POST",
+          body:JSON.stringify(this.state.addTeamMembers)
+        })
+          .then(function(response) {
+            console.log(response);
+          })
+          .then(function(data){
+            console.log(data);
+          });
 
     }
 
     addToTeam = (evt, index) => {
-        console.log("yeet", evt);
+      this.state.addTeamMembers.push(evt);
     }
 
 
@@ -50,11 +38,11 @@ export default class CreateTeam extends PureComponent {
             memberField.push(
                 <div className={styles.popupCardMember}>
                     <label for={`member-${i}`} className={styles.popupCardMemberLabel}>Member {i}:</label>
-                    <AddTeamSelector 
+                    <AddTeamSelector
                         id={`member-${i}`}
                         index={i}
                         addToTeam = {this.addToTeam}
-                         
+
                         />
                     <label for={`id-${i}`} className={styles.popupCardMemberIDLabel}>ID: </label>
                     <input type="checkbox" id={`id-${i}`} />
@@ -71,7 +59,7 @@ export default class CreateTeam extends PureComponent {
                     <p className={styles.popupCardMsg}>Teams must have at least 2 members decided when signing up their team</p>
 
                     {memberField}
-                    <button onClick={close}>Add Team</button>
+                    <button onClick={() => {this.addTeam()}}>Add Team</button>
                 </div>
             </div>
         )
