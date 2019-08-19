@@ -28,11 +28,18 @@ export default class ItemSelector extends PureComponent {
         
         let style = (type === "team") ? styles.team : styles.component;
 
+        let onBlur;
+        if (type === "team") {
+            onBlur = null;
+        } else if (type === "component") {
+            onBlur = (evt, index) => selectItem(selectedOption, fieldIndex)
+        }
+
         return (
             <Select
                 value={selectedOption}
                 onChange={this.handleChange}
-                onBlur={(evt, index) => selectItem(selectedOption, fieldIndex)}
+                onBlur={onBlur}
                 className={style}
                 styles={colourStyles}
 

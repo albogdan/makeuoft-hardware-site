@@ -6,6 +6,14 @@ import ListItem from './CheckoutHistoryListItem';
 import Tag from './Tag';
 
 export default class CheckoutHistory extends PureComponent {
+    constructor(props) {
+        super(props);
+        this.state = { components: null}
+        fetch('http://localhost:8080/api/inventory')
+          .then(response => response.json())
+          .then(components => this.setState({ components }));
+    }
+
     render() {
         let { close, event } = this.props;
         return (
@@ -15,7 +23,7 @@ export default class CheckoutHistory extends PureComponent {
                 <div className={styles.history}>
                     <Close onClick={close} />
                     <div className={styles.historyLeft}>
-                        <Component item={event.item} total={event.total} left={event.left} isCheckout={true} />
+                        <Component item={event.name} total={event.total} left={event.left} isCheckout={true} />
 
                         <div className={styles.historyLeftTags}>
                             <p className={styles.historyLeftTagsTag}>Tags:</p>

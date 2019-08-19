@@ -19,10 +19,11 @@
     &Left {
         width: 20rem;
         height: 100%;
-        @include flexPosition(center, flex-start);
-        flex-direction: column;
+        // @include flexPosition(center, flex-start);
+        // flex-direction: column;
         background: color(lightgrey);
         padding: 1.5rem;
+        padding-top: 5rem;
         border-radius: 4px 0 0 4px;
 
         &Tags {
@@ -33,6 +34,7 @@
                 font-size: size(xs);
                 color: color(dark);
                 margin: 5px;
+                font-weight: 800;
             }
 
             &List {

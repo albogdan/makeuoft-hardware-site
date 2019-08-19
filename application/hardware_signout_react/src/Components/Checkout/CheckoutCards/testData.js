@@ -15,6 +15,14 @@ export const shields = [
     { value: 'gyroscope', label: 'Gyroscope', stock: 5 },
 ];
 
+export const teams = [
+    { value: 'team1', label: 'Team 1' },
+    { value: 'team2', label: 'Team 2' },
+    { value: 'team3', label: 'Team 3' },
+    { value: 'team4', label: 'Team 4' },
+    
+]
+
 export let quantity = [];
 for (let i = 1; i < 16; i++) {
     quantity = quantity.concat({value: i, label: i});

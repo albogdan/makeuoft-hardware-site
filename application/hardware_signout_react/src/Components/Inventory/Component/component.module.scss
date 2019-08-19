@@ -27,8 +27,8 @@
     }
 
     &Div {
-        @include flexPosition(center, center);
-        flex-direction: column;
+        // @include flexPosition(center, center);
+        // flex-direction: column;
         width: 100%;
         padding: .8rem 1rem;
         background: #FFFFFF;
@@ -60,12 +60,21 @@
 }
 
 .checkout {
-    background: color(lightgrey);
     border-width: 0;
     cursor: default;
     margin: 0;
+    background: color(lightgrey) !important;
 
     img {
         border-radius: 4px;
     }
+
+    .componentDiv {
+        background: color(lightgrey) !important;
+
+        &:hover {
+            background: color(lightgrey) !important;
+        }
+    }
+    
 }

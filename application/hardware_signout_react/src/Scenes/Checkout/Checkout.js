@@ -5,7 +5,7 @@ import BasketItem from '../../Components/Checkout/BasketItem/BasketItem';
 // import CheckoutCard from '../../Components/Checkout/CheckoutCards/CheckoutCard';
 // import BasketCard from '../../Components/Checkout/CheckoutCards/BasketCard';
 import QuantitySelect from '../../Components/Checkout/ItemSelector/QuantitySelect';
-import { quantity, groupedOptions } from './../../Components/Checkout/CheckoutCards/testData';
+import { quantity, groupedOptions, teams } from './../../Components/Checkout/CheckoutCards/testData';
 import { ReactComponent as Close } from './../../Assets/Images/Icons/x.svg';
 
 let basket = []
@@ -166,7 +166,7 @@ export default class Checkout extends PureComponent {
             <div className={styles.checkoutTableDiv} style={{marginBottom: 40}}>
               <div className={styles.checkoutTableDivItem}>
                 <ItemSelector type="team"
-                    options={groupedOptions} />
+                    options={teams} />
               </div>
             </div>
 
@@ -181,8 +181,7 @@ export default class Checkout extends PureComponent {
               {componentField}
 
               <button className={styles.btnOutline} onClick={()=>this.addField()}>Add Component</button>
-              {/* <button className={styles.btnOutline}>Add Component</button> */}
-              <button className={styles.btnFilled} type={"submit"}>Submit</button>
+              <button className={styles.btnFilled} type={"submit"} style={{marginBottom: 100}}>Submit</button>
             </div>
           </div>
         </div>
