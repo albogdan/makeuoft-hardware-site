@@ -20,9 +20,7 @@ export default class Inventory extends PureComponent {
     let { components } = this.state;
     this.setState({ active: num, showComponents: [] });
 
-    if (num === 1) {
-      this.setState({showComponents: this.state.components });
-    } else if (num === 10) {
+    if (num === 10) {
       // this.setState({showComponents: this.state.components });
       //write A-Z function
     } else if (num === 11) {
@@ -69,6 +67,8 @@ export default class Inventory extends PureComponent {
     for (let i = 1; i < tags.length+1; i++) {
         tagButtons.push(<button onClick={() => this.sort(i)} className={active === i ? styles['active'] : null}>{tags[i-1]}</button>);
     }
+
+    !inventoryDataRecevied && (active===1) && this.setState({showComponents: components});
 
     return (
       <div className={styles.inventory}>
