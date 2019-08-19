@@ -65,7 +65,7 @@ def teamsCheckout():
     for team in teamList:
         teamDict = {}
         teamDict['value'] = team.id
-        teamDict['label'] = "Team: " + str(team.team_name)
+        teamDict['label'] = "Team: " + str(team.id)
         teamsJSON.append(teamDict)
     return jsonify(teamsJSON)
 

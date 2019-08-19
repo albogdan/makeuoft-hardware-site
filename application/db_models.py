@@ -45,7 +45,7 @@ class Users(UserMixin, db.Model):
 class Teams(db.Model): #Add function to be able to concatenate teams
     #__tablename__ = 'teams'
     id = db.Column(db.Integer, primary_key=True)
-    team_name = db.Column(db.String(255), index=True, nullable=False)
+    #team_name = db.Column(db.String(255), index=True, nullable=False)
     created_date = db.Column(DateTime(), server_default=func.now()) #func.now() tells the db to calculate the timestamp itself rather than letting the application do it
     # ** Connect each team to multiple team members **
     team_members = db.relationship('Users', backref='teams', lazy='dynamic')
