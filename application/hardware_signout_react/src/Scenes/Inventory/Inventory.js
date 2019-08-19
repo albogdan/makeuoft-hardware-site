@@ -77,11 +77,6 @@ export default class Inventory extends PureComponent {
     }
 
     !inventoryDataRecevied && (active===0) && this.setState({showComponents: components});
-    if (!inventoryDataRecevied) {
-      const myJSON = [{"name":"John", "age":31, "city":"New York"}];
-      // const obj = JSON.parse(myJSON);
-      console.log(myJSON);
-    }
 
     return (
       <div className={styles.inventory}>

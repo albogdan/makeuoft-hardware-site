@@ -10,7 +10,7 @@ export default class CreateTeam extends PureComponent {
       this.state = { addTeamMembers: [] }
     }
     addTeam(){
-        console.log(this.state.addTeamMembers);
+        console.log("team???????", this.state.addTeamMembers);
 
         fetch('http://localhost:8080/api/addteam/addrecord', {
           method: "POST",
@@ -26,12 +26,42 @@ export default class CreateTeam extends PureComponent {
     }
 
     addToTeam = (evt, index) => {
-      this.state.addTeamMembers.push(evt);
-    }
+        console.log("yeeet", evt);
 
+        this.setState(state => {
+            let found = false;
+            const addTeamMembers = state.addTeamMembers.map((item, j) => {
+            if (j === index) {
+                item.label = evt.label;
+                item.id = evt.id;
+                item.governmentID = false;
+                found = true;
+                return item;
+            } else {
+                return item;
+            }});
+            if (!found) {
+                addTeamMembers.push({label: evt.label, id: evt.id, governmentID: false})
+            }
+            return { addTeamMembers };
+        });
+    }
+    checkIdBox = index => {
+        this.setState(state => {
+            const addTeamMembers = state.addTeamMembers.map((item, j) => {
+            if (j === index-1) {
+                item.governmentID = !item.governmentID;
+                return item;
+            } else {
+                return item;
+            }});
+            return { addTeamMembers };
+        });
+    }
 
     render() {
         let { close } = this.props;
+        let { addTeamMembers } = this.state;
 
         let memberField = [];
         for (let i=1; i<5; i++) {
@@ -41,11 +71,10 @@ export default class CreateTeam extends PureComponent {
                     <AddTeamSelector
                         id={`member-${i}`}
                         index={i}
-                        addToTeam = {this.addToTeam}
-
+                        addToTeam={this.addToTeam}
                         />
                     <label for={`id-${i}`} className={styles.popupCardMemberIDLabel}>ID: </label>
-                    <input type="checkbox" id={`id-${i}`} />
+                    <input type="checkbox" id={`id-${i}`} onClick={()=> this.checkIdBox(i)} />
                 </div>
             )
         }
@@ -57,7 +86,7 @@ export default class CreateTeam extends PureComponent {
                     <Close onClick={close} className={styles.popupCardClose} />
                     <p className={styles.popupCardHeading}>Create Team</p>
                     <p className={styles.popupCardMsg}>Teams must have at least 2 members decided when signing up their team</p>
-
+                    {console.log("addTeamMembers", addTeamMembers) }
                     {memberField}
                     <button onClick={() => {this.addTeam()}}>Add Team</button>
                 </div>

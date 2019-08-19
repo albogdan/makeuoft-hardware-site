@@ -29,10 +29,12 @@ export default class ItemSelector extends PureComponent {
 
     render() {
         let { selectedOption, participants } = this.state;
-        let { type, formatGroupLabel, id, index, addToTeam } = this.props;
+        let { type, id, index, addToTeam } = this.props;
 
         let style = (type === "team") ? styles.team : styles.component;
 
+        console.log("this.props.id", this.props.id)
+        console.log("selectedOption", selectedOption)
         return (
             <Select
                 value={selectedOption}
@@ -41,9 +43,7 @@ export default class ItemSelector extends PureComponent {
                 styles={colourStyles}
                 id={id}
                 onChange={(evt) => {this.handleChange(); addToTeam(evt, index)}}
-
                 options={participants}
-                formatGroupLabel={formatGroupLabel}
             />
         );
     }

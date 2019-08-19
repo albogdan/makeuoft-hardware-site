@@ -5,7 +5,7 @@ import BasketItem from '../../Components/Checkout/BasketItem/BasketItem';
 // import CheckoutCard from '../../Components/Checkout/CheckoutCards/CheckoutCard';
 // import BasketCard from '../../Components/Checkout/CheckoutCards/BasketCard';
 import QuantitySelect from '../../Components/Checkout/ItemSelector/QuantitySelect';
-import { quantity, groupedOptions } from './../../Components/Checkout/CheckoutCards/testData';
+import { groupedOptions } from './../../Components/Checkout/CheckoutCards/testData';
 import { ReactComponent as Close } from './../../Assets/Images/Icons/x.svg';
 
 export default class Checkout extends PureComponent {
@@ -24,8 +24,6 @@ export default class Checkout extends PureComponent {
       .then(response => response.json())
       .then(teams => this.setState({ teams }));
   }
-
-
 
   changeQuantity = (evt, index) => {
     this.setState(state => {
@@ -156,7 +154,7 @@ export default class Checkout extends PureComponent {
     let componentField = [];
     let { checkoutFields, basketHardwares, selectedHardware, teams } = this.state;
     const basketEmpty = (basketHardwares === null);
-    const teamsDataRecevied = (teams===null);
+    const teamsDataRecevied = (teams === null);
 
     for (var i = 0; i < checkoutFields.length; i ++) {
       componentField.push(
