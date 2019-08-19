@@ -24,13 +24,13 @@ export default class ItemSelector extends PureComponent {
 
     render() {
         let { selectedOption } = this.state;
-        let { type, options, defaultValue, selectItem, fieldIndex } = this.props;
+        let { type, options, defaultValue, selectItem, fieldIndex, selectTeam } = this.props;
         
         let style = (type === "team") ? styles.team : styles.component;
 
         let onBlur;
         if (type === "team") {
-            onBlur = null;
+            onBlur = () => selectTeam(selectedOption);
         } else if (type === "component") {
             onBlur = (evt, index) => selectItem(selectedOption, fieldIndex)
         }

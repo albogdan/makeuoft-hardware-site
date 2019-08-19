@@ -12,6 +12,7 @@ export default class Checkout extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
+      selectedTeam: null,
       checkoutFields: [{name: "", selectOptions: [], selectedQuantity: {value: null}}, {name: "", selectOptions: [], selectedQuantity: {value: null}}, {name: "", selectOptions: [], selectedQuantity: {value: null}}],
       basketHardwares: [],
       selectedHardware: null,
@@ -60,15 +61,22 @@ export default class Checkout extends PureComponent {
     };
   }
 
-  addToBasket = (index) => {
-    {this.state.checkoutFields[index].selectedQuantity &&
+  selectTeam = teamValue => {
+    this.setState({ selectedTeam: teamValue})
+    console.log("WHICH TEAM IS IT???", teamValue);
+  }
+
+  addToBasket = index => {
+    const { checkoutFields } = this.state;
+
+    {checkoutFields[index].selectedQuantity &&
       this.setState(state => {
         let found = false;
 
         const basketHardwares = state.basketHardwares.map((item, j) => {
           if (j === index) {
-            item.name = this.state.checkoutFields[index].name;
-            item.selectedQuantity = this.state.checkoutFields[index].selectedQuantity.value;
+            item.name = checkoutFields[index].name;
+            item.selectedQuantity = checkoutFields[index].selectedQuantity.value;
             item.key = index;
             found = true;
             return item;
@@ -77,7 +85,7 @@ export default class Checkout extends PureComponent {
           }
         });
         if (!found) {
-          basketHardwares.push({name: this.state.checkoutFields[index].name, selectedQuantity: quantity.value, key: index})
+          basketHardwares.push({name: checkoutFields[index].name, selectedQuantity: checkoutFields[index].selectedQuantity.value, key: index})
         }
         return { basketHardwares };
       });
@@ -155,8 +163,9 @@ export default class Checkout extends PureComponent {
                 {teamsDataRecevied ? (
                   <p className={styles.inventoryListLoading}>Loading...</p>
                 ) : (
-                      <ItemSelector type="team"
-                          options={teams} />
+                    <ItemSelector type="team"
+                      selectTeam={this.selectTeam}
+                      options={teams} />
                 )}
               </div>
             </div>
