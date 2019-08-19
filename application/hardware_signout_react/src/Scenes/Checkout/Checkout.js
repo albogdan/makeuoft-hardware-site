@@ -5,7 +5,7 @@ import BasketItem from '../../Components/Checkout/BasketItem/BasketItem';
 // import CheckoutCard from '../../Components/Checkout/CheckoutCards/CheckoutCard';
 // import BasketCard from '../../Components/Checkout/CheckoutCards/BasketCard';
 import QuantitySelect from '../../Components/Checkout/ItemSelector/QuantitySelect';
-import { quantity, groupedOptions, teams } from './../../Components/Checkout/CheckoutCards/testData';
+import { quantity, groupedOptions } from './../../Components/Checkout/CheckoutCards/testData';
 import { ReactComponent as Close } from './../../Assets/Images/Icons/x.svg';
 
 let basket = []
@@ -13,13 +13,17 @@ let basket = []
 export default class Checkout extends PureComponent {
   constructor(props) {
     super(props);
-    this.state = { 
-      checkoutFields: [{name: "", selectOptions: [], selectedQuantity: {value: null}}, {name: "", selectOptions: [], selectedQuantity: {value: null}}, {name: "", selectOptions: [], selectedQuantity: {value: null}}], 
-      basketHardwares: [], 
-      selectedHardware: null}
-    this.getSelectedHardware = this.getSelectedHardware.bind(this)
-    this.changeQuantity = this.changeQuantity.bind(this)
-    this.deleteCheckoutField = this.deleteCheckoutField.bind(this)
+    this.state = {
+      checkoutFields: [{name: "", selectOptions: [], selectedQuantity: {value: null}}, {name: "", selectOptions: [], selectedQuantity: {value: null}}, {name: "", selectOptions: [], selectedQuantity: {value: null}}],
+      basketHardwares: [],
+      selectedHardware: null,
+      teams: null}
+    this.getSelectedHardware = this.getSelectedHardware.bind(this);
+    this.changeQuantity = this.changeQuantity.bind(this);
+    this.deleteCheckoutField = this.deleteCheckoutField.bind(this);
+    fetch('http://localhost:8080/api/teamscheckout')
+      .then(response => response.json())
+      .then(teams => this.setState({ teams }));
   }
 
   changeQuantity = (evt, index) => {
@@ -65,7 +69,7 @@ export default class Checkout extends PureComponent {
   }
 
   addToBasket = (index) => {
-    {this.state.checkoutFields[index].selectedQuantity && 
+    {this.state.checkoutFields[index].selectedQuantity &&
       this.setState(state => {
         let found = false;
 
@@ -131,9 +135,10 @@ export default class Checkout extends PureComponent {
 
   render() {
     let componentField = [];
-    let { checkoutFields, basketHardwares, selectedHardware } = this.state;
+    let { checkoutFields, basketHardwares, selectedHardware, teams } = this.state;
     const basketEmpty = (basket === null);
-    
+    const teamsDataRecevied = (teams===null);
+
     for (var i = 0; i < checkoutFields.length; i ++) {
       componentField.push(
         <div className={styles.checkoutTableDivItem} fieldIndex={i}>
@@ -143,12 +148,12 @@ export default class Checkout extends PureComponent {
             selectItem={this.getSelectedHardware}
             fieldIndex={i} />
 
-          <QuantitySelect 
-            selectQuantity={this.addToBasket} 
+          <QuantitySelect
+            selectQuantity={this.addToBasket}
             fieldIndex={i}
             onChange = {this.changeQuantity}
             selectedHardware={selectedHardware}
-            selectedValue={checkoutFields[i].selectedQuantity} 
+            selectedValue={checkoutFields[i].selectedQuantity}
             options={checkoutFields[i].selectOptions} />
         </div>
       );
@@ -165,8 +170,13 @@ export default class Checkout extends PureComponent {
 
             <div className={styles.checkoutTableDiv} style={{marginBottom: 40}}>
               <div className={styles.checkoutTableDivItem}>
-                <ItemSelector type="team"
-                    options={teams} />
+                {teamsDataRecevied ? (
+                  <p className={styles.inventoryListLoading}>Loading...</p>
+                ) : (
+                      <ItemSelector type="team"
+                          options={teams} />
+                )}
+
               </div>
             </div>
 
@@ -195,7 +205,7 @@ export default class Checkout extends PureComponent {
             </div>
 
             <div className={styles.checkoutTableDiv}>
-              {!basketEmpty && 
+              {!basketEmpty &&
                   (basketHardwares || []).map((item, i) => {
                     return (
                       <BasketItem component={item.name} quantity={item.selectedQuantity} key={item.key} />

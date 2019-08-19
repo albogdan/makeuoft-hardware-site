@@ -50,8 +50,25 @@ def teamsAll():
             name = str(teammate.first_name + ' ' + teammate.last_name)
             teamDict['members'].append({"name": name, "govt_id": teammate.id_provided, "id": teammate.id})
         teamsJSON.append(teamDict)
-
     return jsonify(teamsJSON)
+
+
+
+@api.route('/teamscheckout', methods=['GET','POST'])
+@cross_origin()
+#@login_required
+def teamsCheckout():
+    # Get a list of all the teams
+    teamList = Teams.query.all()
+    teamsJSON = []
+    # For each team:
+    for team in teamList:
+        teamDict = {}
+        teamDict['value'] = team.id
+        teamDict['label'] = "Team: " + str(team.team_name)
+        teamsJSON.append(teamDict)
+    return jsonify(teamsJSON)
+
 @api.route('/info', methods=['GET','POST'])
 @cross_origin()
 #@login_required
@@ -73,6 +90,7 @@ def info():
     returnJSON['partsall'] = parts_all_count
     returnJSON['partsout'] = parts_out
     return jsonify(returnJSON)
+
 
 """
 [
