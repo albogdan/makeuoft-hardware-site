@@ -92,6 +92,36 @@ def info():
     return jsonify(returnJSON)
 
 
+@api.route('/checkoutitems', methods=['POST'])
+@cross_origin()
+#@login_required
+def itemCheckout():
+    data = json.loads(request.data)
+    print("Request for team {0}".format(data['team']))
+    print("Items requested: {0}". format(data['items']))
+    # Get the team
+    team = Teams.query.filter_by(id=data['team']).first()
+
+    # For each item, check if the quantity requested exists
+    # Then iterate through the quantity they requested
+    for item in data['items']:
+        partDB = PartsAvailable.query.filter_by(part_name=item['name']).first()
+        if(partDB.quantity_remaining < item['quantity']):
+            return jsonify({"status": "failed", "message": "Not enough parts remaining!",
+                            "name": item['name'], "requested_parts": item['quantity'],
+                            "remaining_parts": partDB.quantity_remaining})
+        for i in range(0, item['quantity']):
+            part_out = PartsSignedOut()
+            team.parts_used.append(part_out)
+            partDB.quantity_remaining -=1
+            partDB.parts_signed_out.append(part_out)
+            db.session.add(part_out)
+    db.session.commit()
+    #     print(partDB.quantity_remaining)
+    #     print(item['name'], item['quantity'])
+    #print(request.data)
+    return jsonify({"status": "success", "message": "all parts recorded successfully"})
+
 """
 [
   {index: 1, members: [{name:"Lisa Li", id: false}, {name: "Alex Bodgan", id: true}, {name: "Martin FFrench", id: true}, {name: "Nhien Tran-Nguyen", id: false}] },

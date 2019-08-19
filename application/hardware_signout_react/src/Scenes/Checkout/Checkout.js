@@ -25,6 +25,8 @@ export default class Checkout extends PureComponent {
       .then(teams => this.setState({ teams }));
   }
 
+
+
   changeQuantity = (evt, index) => {
     this.setState(state => {
       const checkoutFields = state.checkoutFields.map((item, j) => {
@@ -123,6 +125,33 @@ export default class Checkout extends PureComponent {
     });
   }
 
+  sendRequestForCheckout () {
+    // console.log("Team to checkout:", this.state.selectedTeam.value);
+    // console.log("ITEMS TO DO:", this.state.basketHardwares);
+    var itemList = [];
+    for(var i=0; i<this.state.basketHardwares.length; i++){
+      itemList.push({"name": this.state.basketHardwares[i].name,
+                     "quantity":this.state.basketHardwares[i].selectedQuantity });
+    }
+
+    var data = {
+      "team" : this.state.selectedTeam.value,
+      "items" :  itemList
+    }
+    console.log("DATA", data);
+
+    fetch('http://localhost:8080/api/checkoutitems', {
+      method: "POST",
+      body:JSON.stringify(data)
+    })
+      .then(function(response) {
+        console.log(response);
+      })
+      .then(function(data){
+        console.log(data);
+      });
+  }
+
   render() {
     let componentField = [];
     let { checkoutFields, basketHardwares, selectedHardware, teams } = this.state;
@@ -179,7 +208,7 @@ export default class Checkout extends PureComponent {
               {componentField}
 
               <button className={styles.btnOutline} onClick={()=>this.addField()}>Add Component</button>
-              <button className={styles.btnFilled} type={"submit"} style={{marginBottom: "30vh"}}>Submit</button>
+              <button className={styles.btnFilled} onClick={()=>this.sendRequestForCheckout()} type={"submit"} style={{marginBottom: "30vh"}}>Submit</button>
             </div>
           </div>
         </div>
