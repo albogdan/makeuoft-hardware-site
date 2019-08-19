@@ -17,6 +17,16 @@ def register(flask_app):
         """Seeding commands for database tables for the hardware parts and tags, etc"""
         pass
     @seed.command()
+    def seedall():
+        """Runs all the commands to reinitialize the database with necessary seeds"""
+        """These commands are taken from the cmd.txt file in seeds/"""
+        commands_csv_path = 'application/seeds/cmd.txt'
+        with open(commands_csv_path, 'r') as commands_csv:
+            for command in commands_csv:
+                print("\n Executing command : {0} \n\n".format(command[:-1]))
+                os.system(command[:-1])
+
+    @seed.command()
     def partsavailable():
         """Seeds the PartsAvailable table with values from PartsAvailable.csv in the seeds/ folder"""
         """Note: if get 'unique constraint failed' then you have to clear the table before you seed it"""
@@ -62,20 +72,16 @@ def register(flask_app):
 
     @seed.command()
     def teams():
-        """Seeds the Teams table with values from Teams.csv in the seeds/ folder"""
+        """Seeds the Teams table with integers from 1 to n for each team"""
         teams_csv_path = 'application/seeds/Teams.csv'#os.path.join(BASE_DIR, 'FroshGroups.csv')
         userSeeds = Users.query.filter_by().all()
         #print(userSeeds)
-        with open(teams_csv_path, 'r') as teams_csv:
-            for i in teams_csv:
-                if(i[-1] == '\n'):
-                    record = Teams(team_name = i[:-1])
-                else:
-                    record = Teams(team_name = i)
-                for k in range(0,4):
-                    record.team_members.append(userSeeds[0])
-                    del userSeeds[0]
-                db.session.add(record)
+        for i in range(0, len(userSeeds)//Teams.max_members):
+            record = Teams()
+            for k in range(0,4):
+                record.team_members.append(userSeeds[0])
+                del userSeeds[0]
+            db.session.add(record)
         db.session.commit()
 
     @seed.command()

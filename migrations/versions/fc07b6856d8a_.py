@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 9ff29aab42e6
+Revision ID: fc07b6856d8a
 Revises: 
-Create Date: 2019-08-17 22:38:46.738643
+Create Date: 2019-08-19 00:35:55.223962
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '9ff29aab42e6'
+revision = 'fc07b6856d8a'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -37,11 +37,9 @@ def upgrade():
     op.create_index(op.f('ix_tag_tag_name'), 'tag', ['tag_name'], unique=False)
     op.create_table('teams',
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('team_name', sa.String(length=255), nullable=False),
     sa.Column('created_date', sa.DateTime(), server_default=sa.text('CURRENT_TIMESTAMP'), nullable=True),
     sa.PrimaryKeyConstraint('id')
     )
-    op.create_index(op.f('ix_teams_team_name'), 'teams', ['team_name'], unique=False)
     op.create_table('parts_signed_out',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('part_returned', sa.Boolean(), nullable=True),
@@ -87,7 +85,6 @@ def downgrade():
     op.drop_table('users')
     op.drop_table('tags')
     op.drop_table('parts_signed_out')
-    op.drop_index(op.f('ix_teams_team_name'), table_name='teams')
     op.drop_table('teams')
     op.drop_index(op.f('ix_tag_tag_name'), table_name='tag')
     op.drop_table('tag')
