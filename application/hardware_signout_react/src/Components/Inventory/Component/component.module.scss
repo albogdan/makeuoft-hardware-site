@@ -27,8 +27,8 @@
     }
 
     &Div {
-        // @include flexPosition(center, center);
-        // flex-direction: column;
+        @include flexPosition(center, center);
+        flex-direction: column;
         width: 100%;
         padding: .8rem 1rem;
         background: #FFFFFF;
