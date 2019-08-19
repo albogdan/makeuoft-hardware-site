@@ -27,7 +27,7 @@ export default class BasketItem extends PureComponent {
             <Select
                 value={selectedValue}
                 onChange={(evt) => {this.handleChange(); onChange(evt, fieldIndex)}}
-                onBlur={selectQuantity(fieldIndex)}
+                onBlur={() => selectQuantity(fieldIndex)}
                 className={styles.quantity}
                 styles={colourStyles}
                 options={options}

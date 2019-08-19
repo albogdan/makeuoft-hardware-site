@@ -8,8 +8,6 @@ import QuantitySelect from '../../Components/Checkout/ItemSelector/QuantitySelec
 import { quantity, groupedOptions } from './../../Components/Checkout/CheckoutCards/testData';
 import { ReactComponent as Close } from './../../Assets/Images/Icons/x.svg';
 
-let basket = []
-
 export default class Checkout extends PureComponent {
   constructor(props) {
     super(props);
@@ -120,7 +118,7 @@ export default class Checkout extends PureComponent {
   render() {
     let componentField = [];
     let { checkoutFields, basketHardwares, selectedHardware, teams } = this.state;
-    const basketEmpty = (basket === null);
+    const basketEmpty = (basketHardwares === null);
     const teamsDataRecevied = (teams===null);
 
     for (var i = 0; i < checkoutFields.length; i ++) {
@@ -160,7 +158,6 @@ export default class Checkout extends PureComponent {
                       <ItemSelector type="team"
                           options={teams} />
                 )}
-
               </div>
             </div>
 
@@ -188,12 +185,14 @@ export default class Checkout extends PureComponent {
 
             <div className={styles.checkoutTableDiv}>
               {!basketEmpty &&
-                  (basketHardwares || []).map((item, i) => {
+                  basketHardwares.map((item, i) => {
                     return (
                       <BasketItem component={item.name} quantity={item.selectedQuantity} key={item.key} />
                     )
                   }
               )}
+
+              {/* {console.log("basket", basketHardwares)} */}
               {/* <p>Team</p> */}
             </div>
           </div>
