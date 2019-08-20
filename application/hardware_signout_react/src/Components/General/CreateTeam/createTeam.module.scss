@@ -9,11 +9,6 @@
     width: 100vw;
     height: 100vh;
     z-index: 8;
-
-    button {
-        @include btnFilled(yellow);
-        margin-bottom: 0;
-    }
 }
 
 .popup {
@@ -45,13 +40,14 @@
 
         &Msg {
             font-size: size(xs);
-            margin: 5px 0 15px;
+            margin-bottom: 1.5rem;
             color: #666666;
         }
 
         &Heading {
             font-size: size(sm) !important;
             color: color(black);
+            margin-bottom: 1rem;
         }
 
         &Member {
@@ -73,5 +69,32 @@
                 margin: 0 8px 0 15px;
             }
         }
+
+        &Btn {
+            @include btnFilled(yellow);
+            margin-bottom: 0;
+        }
+    }
+}
+
+.alert {
+    color: color(red);
+}
+
+.deleteTeamBtn {
+    color: color(white);
+    padding: .6rem 1.2rem;
+    border-radius: 100px;
+    font-size: size(xxs);
+    font-weight: bold;
+    background: color(red);
+    border: 1px solid color(red);
+    margin-top: 1rem;
+    transition: all .2s;
+    align-self: flex-end;
+
+    &:hover {
+        background: darken(color(red), 10%);
+        border: 1px solid darken(color(red), 10%);
     }
 }

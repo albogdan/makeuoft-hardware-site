@@ -4,12 +4,15 @@ import TeamCard from './../../Components/Home/TeamCard/TeamCard';
 import AddTeamCard from '../../Components/Home/AddTeamCard/AddTeamCard';
 import OverviewCard from '../../Components/Home/OverviewCard/OverviewCard';
 import CreateTeam from '../../Components/General/CreateTeam/CreateTeam';
+import EditTeam from '../../Components/General/CreateTeam/EditTeam';
 
 export default class App extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      popup: false,
+      addTeamPopup: false,
+      editPopup: false,
+      editPopupTeam: null,
       test: undefined,
       teams: null,
       info: null
@@ -22,23 +25,34 @@ export default class App extends PureComponent {
       .then(info => this.setState({ info }));
   }
 
-  openPopup() {
-    this.setState({popup: true});
+  openPopup = type => {
+    if (type === "addTeam") {
+      this.setState({addTeamPopup: true});
+    } else if (type === "edit") {
+      this.setState({editPopup: true});
+    }
   }
 
   closePopup() {
-    this.setState({popup: false});
+    this.setState({addTeamPopup: false, editPopup: false});
+  }
+
+  changePopupTeam = index => {
+    this.setState({editPopupTeam: index});
   }
 
   render() {
-    let { popup, teams, info } = this.state;
+    let { addTeamPopup, teams, info, editPopup, editPopupTeam } = this.state;
     const teamsDataReceived = (teams===null);
     const infoDataReceived = (info===null);
 
     return (
       <div className={styles.home}>
-        {popup &&
+        {addTeamPopup &&
           <CreateTeam close={() => {this.closePopup()}} />
+        }
+        {editPopup &&
+          <EditTeam teamNumber={editPopupTeam} close={() => {this.closePopup()}}/>
         }
         <h1 style={{marginTop: 50}}>MakeUofT Hardware Signout</h1>
 
@@ -62,13 +76,13 @@ export default class App extends PureComponent {
           <h2>Teams</h2>
 
           <div className={styles.teamList}>
-            <AddTeamCard open={() => {this.openPopup()}} />
+            <AddTeamCard open={() => this.openPopup("addTeam")} />
             {teamsDataReceived ? (
                 <p className={styles.inventoryListLoading}>Loading...</p>
             ) : (
               teams.map((item, i) => {
                 return (
-                  <TeamCard teamNumber={item.index} members={item.members}/>
+                  <TeamCard teamNumber={item.index} members={item.members} openPopup={this.openPopup} changePopupTeam={this.changePopupTeam}/>
                 )
               })
             )}

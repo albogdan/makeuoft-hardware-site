@@ -1,33 +1,47 @@
 import React, { PureComponent } from 'react'
 import styles from './createTeam.module.scss';
-// import { Link } from 'react-router-dom';
 import AddTeamSelector from './../../Checkout/ItemSelector/AddTeamSelector';
 import {ReactComponent as Close } from './../../../Assets/Images/Icons/x.svg'
 
 export default class CreateTeam extends PureComponent {
     constructor(props) {
       super(props);
-      this.state = { addTeamMembers: [] }
+      this.state = { addTeamMembers: [], alertStyle: "", idAlert: false }
     }
     addTeam(){
         console.log("team???????", this.state.addTeamMembers);
+        const { addTeamMembers } = this.state;
+        let idFlag = false;
 
-        fetch('http://localhost:8080/api/addteam/addrecord', {
-          method: "POST",
-          body:JSON.stringify(this.state.addTeamMembers)
-        })
-          .then(function(response) {
-            console.log(response);
-          })
-          .then(function(data){
-            console.log(data);
-          });
+        for (let i=0; i<addTeamMembers.length; i++ ) {
+            if (addTeamMembers[i].governmentID) {
+                idFlag = true;
+                break;
+            }
+        }
 
+        if (idFlag === false) {
+            this.setState({ idAlert: true });
+            return;
+        } else if (addTeamMembers.length < 2) {
+            this.setState({ alertStyle: styles.alert, idAlert: false });
+        } else {
+            fetch('http://localhost:8080/api/addteam/addrecord', {
+                method: "POST",
+                body: JSON.stringify(addTeamMembers)
+            })
+            .then(function(response) {
+                console.log(response);
+            })
+            .then(function(data){
+                console.log(data);
+            });
+
+            this.props.close();
+        }
     }
 
     addToTeam = (evt, index) => {
-        console.log("yeeet", evt);
-
         this.setState(state => {
             let found = false;
             const addTeamMembers = state.addTeamMembers.map((item, j) => {
@@ -61,7 +75,7 @@ export default class CreateTeam extends PureComponent {
 
     render() {
         let { close } = this.props;
-        let { addTeamMembers } = this.state;
+        let { addTeamMembers, alertStyle, idAlert } = this.state;
 
         let memberField = [];
         for (let i=1; i<5; i++) {
@@ -85,10 +99,13 @@ export default class CreateTeam extends PureComponent {
                 <div className={styles.popupCard}>
                     <Close onClick={close} className={styles.popupCardClose} />
                     <p className={styles.popupCardHeading}>Create Team</p>
-                    <p className={styles.popupCardMsg}>Teams must have at least 2 members decided when signing up their team</p>
+                    <p className={`${styles.popupCardMsg} ${alertStyle}`}>Teams must have at least 2 members decided when signing up their team</p>
+                    {idAlert && 
+                        <p className={`${styles.popupCardMsg} ${styles.alert}`} style={{marginTop: "-1rem"}}>At least 1 member has to provide their id</p>
+                    }
                     {console.log("addTeamMembers", addTeamMembers) }
                     {memberField}
-                    <button onClick={() => {this.addTeam()}}>Add Team</button>
+                    <button className={styles.popupCardBtn} onClick={() => this.addTeam()}>Add Team</button>
                 </div>
             </div>
         )

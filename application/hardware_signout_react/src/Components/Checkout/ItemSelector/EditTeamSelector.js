@@ -29,7 +29,7 @@ export default class ItemSelector extends PureComponent {
                 className={styles.team}
                 styles={colourStyles}
                 id={id}
-                onChange={(evt) => {this.handleChange(); addToTeam(evt, index)}}
+                onChange={this.handleChange}
                 options={participants}
                 isClearable={true}
             />

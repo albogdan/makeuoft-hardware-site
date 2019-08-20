@@ -7,12 +7,12 @@ import { ReactComponent as Alert } from './../../../Assets/Images/Icons/alert.sv
 
 export default class TeamCard extends PureComponent {
     render() {
-        let {teamNumber, members} = this.props;
+        let {teamNumber, members, openPopup, changePopupTeam} = this.props;
         return (
             <div className={styles.card}>
                 <div className={styles.cardTitle}>
                     <p>Team {teamNumber}</p>
-                    <Edit />
+                    <Edit onClick={() => {openPopup("edit"); changePopupTeam(teamNumber)}}/>
                 </div>
                 <div className={styles.cardMembers}>
                     {members.map((item, i) =>
