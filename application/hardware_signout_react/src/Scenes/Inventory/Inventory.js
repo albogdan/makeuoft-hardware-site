@@ -75,7 +75,7 @@ export default class Inventory extends PureComponent {
 
     if(tagBtns !== null){
       for (let i = 0; i < tagBtns.length; i++) {
-        tagButtons.push(<button onClick={() => this.sort(tagBtns[i].id)} className={active === i ? styles['active'] : null}>{tagBtns[i].name}</button>);
+        tagButtons.push(<button onClick={() => this.sort(i)} className={active === i ? styles['active'] : null}>{tagBtns[i].name}</button>);
       }
     }
     !inventoryDataRecevied && (active===0) && this.setState({showComponents: components});

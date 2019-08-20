@@ -6,14 +6,21 @@ import {ReactComponent as Close } from './../../../Assets/Images/Icons/x.svg'
 export default class CreateTeam extends PureComponent {
     constructor(props) {
       super(props);
-      this.state = { }
+      this.state = { teamMembers: null }
+      fetch('http://localhost:8080/api/manageteams/getmembers', {
+          method: "POST",
+          body: JSON.stringify({"teamNumber": this.props.teamNumber})
+        })
+          .then(response => response.json())
+          .then(teamMembers => this.setState({ teamMembers }));
+
     }
 
 
     render() {
         let { close, teamNumber } = this.props;
-        let { addTeamMembers, alertStyle, idAlert } = this.state;
-
+        let { addTeamMembers, alertStyle, idAlert, teamMembers } = this.state;
+        console.log("MEMBERS", teamMembers);
         let memberField = [];
         for (let i=1; i<5; i++) {
             memberField.push(
@@ -36,7 +43,7 @@ export default class CreateTeam extends PureComponent {
                 <div className={styles.popupCard}>
                     <Close onClick={close} className={styles.popupCardClose} />
                     <p className={styles.popupCardHeading} style={{marginBottom: 25}}>Edit Team {teamNumber}</p>
-                    {idAlert && 
+                    {idAlert &&
                         <p className={`${styles.popupCardMsg} ${styles.alert}`}>At least 1 member has to provide their id</p>
                     }
                     {memberField}

@@ -19,6 +19,7 @@ def api_main():
     print("success")
     return jsonify({'message': 'User registration'})
 
+# Inventory.js
 @api.route('/inventory', methods=['GET', 'POST'])
 @cross_origin()
 #@login_required
@@ -32,7 +33,7 @@ def inventoryAll():
 
     return jsonify(partsJSON)
 
-
+# App.js
 @api.route('/teamlist', methods=['GET','POST'])
 @cross_origin()
 #@login_required
@@ -52,6 +53,7 @@ def teamsAll():
         teamsJSON.append(teamDict)
     return jsonify(teamsJSON)
 
+# Inventory.js
 @api.route('/taglist', methods=['GET','POST'])
 @cross_origin()
 #@login_required
@@ -65,9 +67,10 @@ def tagsAll():
         tagDict['id'] = tag.id
         tagDict['name'] = tag.tag_name
         tagsJSON.append(tagDict)
+    print(tagsJSON)
     return jsonify(tagsJSON)
 
-
+# Checkout.js
 @api.route('/teamscheckout', methods=['GET','POST'])
 @cross_origin()
 #@login_required
@@ -83,6 +86,7 @@ def teamsCheckout():
         teamsJSON.append(teamDict)
     return jsonify(teamsJSON)
 
+# App.js
 @api.route('/info', methods=['GET','POST'])
 @cross_origin()
 #@login_required
@@ -105,7 +109,7 @@ def info():
     returnJSON['partsout'] = parts_out
     return jsonify(returnJSON)
 
-
+# Checkout.js
 @api.route('/checkoutitems', methods=['POST'])
 @cross_origin()
 #@login_required
@@ -136,6 +140,7 @@ def itemCheckout():
     #print(request.data)
     return jsonify({"status": "success", "message": "all parts recorded successfully"})
 
+# AddTeamSelector.js
 @api.route('/manageteams/getparticipants', methods=['GET', 'POST'])
 @cross_origin()
 #@login_required
@@ -148,7 +153,8 @@ def usersNotOnTeam():
     return jsonify(usersJSON)
 
 
-## ADD A CHECK FOR MINIMUM 2 PEOPLE, ALSO ADD GOVT_IDS
+## ADD A CHECK FOR MINIMUM 2 PEOPLE
+# CreateTeam.js
 @api.route('/manageteams/addrecord', methods=['GET', 'POST'])
 @cross_origin()
 #@login_required
@@ -163,6 +169,22 @@ def addrecord():
     db.session.commit()
     return jsonify({"status": "success", "message": "new team created successfully"})
 
+
+# EditTeam.js
+@api.route('/manageteams/getmembers', methods=['GET', 'POST'])
+@cross_origin()
+#@login_required
+def getMembers():
+    data = json.loads(request.data)
+    teamNumber = data['teamNumber']
+    team = Teams.query.filter_by(id=teamNumber).first()
+    if(team == None):
+        return jsonify({"status": "error", "message": "team does not exist"})
+    teamMembers = team.team_members.all()
+    teamMembersJSON = []
+    for member in teamMembers:
+        teamMembersJSON.append({"value": member.id, "label": str(member.first_name + " " + member.last_name)})
+    return jsonify(teamMembersJSON)
 
 """
 [
