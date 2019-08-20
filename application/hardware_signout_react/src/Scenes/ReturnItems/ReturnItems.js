@@ -1,14 +1,12 @@
 import React, { PureComponent } from 'react'
-import styles from './checkout.module.scss';
+import styles from './../Checkout/checkout.module.scss';
 import ItemSelector from '../../Components/Checkout/ItemSelector/ItemSelector';
 import BasketItem from '../../Components/Checkout/BasketItem/BasketItem';
-// import CheckoutCard from '../../Components/Checkout/CheckoutCards/CheckoutCard';
-// import BasketCard from '../../Components/Checkout/CheckoutCards/BasketCard';
 import QuantitySelect from '../../Components/Checkout/ItemSelector/QuantitySelect';
 import { groupedOptions } from './../../Components/Checkout/CheckoutCards/testData';
 import { ReactComponent as Close } from './../../Assets/Images/Icons/x.svg';
 
-export default class Checkout extends PureComponent {
+export default class ReturnItems extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -152,7 +150,7 @@ export default class Checkout extends PureComponent {
 
   render() {
     let componentField = [];
-    let { checkoutFields, basketHardwares, selectedHardware, teams, selectedTeam } = this.state;
+    let { checkoutFields, basketHardwares, selectedHardware, teams } = this.state;
     const basketEmpty = (basketHardwares === null);
     const teamsDataRecevied = (teams === null);
 
@@ -197,7 +195,7 @@ export default class Checkout extends PureComponent {
               </div>
             </div>
 
-            <h2>Checkout</h2>
+            <h2>Return Items</h2>
             <div className={styles.checkoutTable}>
               <p>Component</p>
               <p>Quantity</p>
@@ -206,13 +204,14 @@ export default class Checkout extends PureComponent {
               {componentField}
 
               <button className={styles.btnOutline} onClick={()=>this.addField()}>Add Component</button>
+              <button className={styles.btnFilled} onClick={()=>this.sendRequestForCheckout()} type={"submit"} style={{marginBottom: "30vh"}}>Submit</button>
             </div>
           </div>
         </div>
 
         <div className={styles.checkoutDiv}>
           <div className={styles.checkoutBasket}>
-            <h2>Basket</h2>
+            <h2>Returned Items</h2>
             <div className={styles.checkoutTable}>
               <p>Component</p>
               <p>Quantity</p>
@@ -229,7 +228,7 @@ export default class Checkout extends PureComponent {
                 )}
               </div>
               <div className={styles.checkoutTableDivBasketConfirm}>
-                <p>{selectedTeam ? `Confirm this is with ${selectedTeam.label}` : ""}</p>
+                {/* <p>{selectedTeam ? `Confirm this is with ${selectedTeam.label}` : ""}</p> */}
                 <button className={styles.btnFilled} onClick={()=>this.sendRequestForCheckout()} type={"submit"}>Submit</button>
                 {console.log("basket", basketHardwares)}
               </div>

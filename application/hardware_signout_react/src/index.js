@@ -4,6 +4,7 @@ import './index.scss';
 import App from './Scenes/Home/App';
 import Inventory from './Scenes/Inventory/Inventory';
 import Checkout from './Scenes/Checkout/Checkout';
+import ReturnItems from './Scenes/ReturnItems/ReturnItems';
 import TeamOverview from './Scenes/TeamOverview/TeamOverview';
 import { HashRouter as Router, Route } from 'react-router-dom';
 import * as serviceWorker from './serviceWorker';
@@ -22,6 +23,7 @@ class MyApp extends React.PureComponent {
                             <Route exact path="/team-overview" component={TeamOverview} />
                             <Route path="/inventory" component={Inventory} />
                             <Route path="/checkout" component={Checkout} />
+                            <Route path="/return-items" component={ReturnItems} />
                         </div>
                     </ScrollToTop>
                 </Router>

@@ -28,38 +28,10 @@
     }
 
     &TableDiv {
-        @include flexPosition;
+        @include flexPosition(flex-start, center);
         flex-direction: column;
         width: 100%;
         margin-top: 1.5rem;
-
-        &Basket {
-            &Items{
-                @include flexPosition(flex-start, center);
-                flex-direction: column;
-                width: 100%;
-            }
-
-            &Confirm {
-                @include flexPosition(flex-start, flex-end);
-                flex-direction: column;
-                width: 100%;
-
-                p {
-                    font-size: size(xs);
-                    margin: 2rem 0 0;
-                }
-
-                .btnFilled {
-                    @include btnFilled;
-                    align-self: flex-end;
-                    margin: 2rem 0 0;
-                    // bottom: 30px;
-                    // position: absolute;
-                }
-
-            }
-        }
 
         &Item {
             @include flexPosition;
@@ -84,6 +56,10 @@
 
         .btnOutline {
             @include btnOutline;
+        }
+        .btnFilled {
+            @include btnFilled;
+            align-self: flex-end;
         }
     }
 

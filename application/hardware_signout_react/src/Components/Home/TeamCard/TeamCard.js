@@ -23,7 +23,10 @@ export default class TeamCard extends PureComponent {
                     )}
                 </div>
                 <div className={styles.cardButton}>
-                    <button className={styles.cardButton1}>Add to cart</button>
+                    <Link to={'/checkout'}>
+                        <button className={styles.cardButton1}>Add to cart</button>
+                    </Link>
+                    
                     <Link to={{pathname: '/team-overview' }}>
                     {/* ,state: { ...item} */}
                         <button className={styles.cardButton2}>View cart</button>

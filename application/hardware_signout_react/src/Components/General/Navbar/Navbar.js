@@ -6,7 +6,7 @@ import { ReactComponent as Home } from './../../../Assets/Images/Icons/house log
 import { ReactComponent as Team } from './../../../Assets/Images/Icons/team logo.svg';
 import { ReactComponent as Inventory } from './../../../Assets/Images/Icons/inventory.svg';
 import { ReactComponent as Checkout } from './../../../Assets/Images/Icons/cart logo.svg';
-
+import { ReactComponent as Return } from './../../../Assets/Images/Icons/return.svg';
 import { ReactComponent as Logout } from './../../../Assets/Images/Icons/logout.svg';
 
 export default class Navbar extends PureComponent {
@@ -30,6 +30,12 @@ export default class Navbar extends PureComponent {
 
                         <Link to={'/checkout'}>
                             <Checkout />
+                        </Link>
+                        <Link to={'/checkout'}>
+                            <Checkout />
+                        </Link>
+                        <Link to={'/return-items'}>
+                            <Return />
                         </Link>
                     </div>
 
