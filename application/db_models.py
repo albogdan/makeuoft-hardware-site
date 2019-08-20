@@ -25,7 +25,7 @@ class Users(UserMixin, db.Model):
     email = db.Column(db.String(255), index=True, unique=True, nullable=False)
     password_hash = db.Column(db.String(128))
     # ** Connect each participant to a team **
-    team = db.Column(db.Integer, db.ForeignKey('teams.id'))
+    team = db.Column(db.Integer, db.ForeignKey('teams.id', ondelete='CASCADE'))
     id_provided = db.Column(db.Boolean, default=False)
     created_date = db.Column(DateTime(), server_default=func.now()) #func.now() tells the db to calculate the timestamp itself rather than letting the application do it
     updated_date = db.Column(DateTime(), onupdate=func.now())
@@ -48,7 +48,8 @@ class Teams(db.Model): #Add function to be able to concatenate teams
     #team_name = db.Column(db.String(255), index=True, nullable=False)
     created_date = db.Column(DateTime(), server_default=func.now()) #func.now() tells the db to calculate the timestamp itself rather than letting the application do it
     # ** Connect each team to multiple team members **
-    team_members = db.relationship('Users', backref='teams', lazy='dynamic')
+    team_members = db.relationship('Users', backref='teams', lazy='dynamic',
+                                    cascade="all")#, delete-orphan")
     max_members = 4
     # ** Connect each team to multiple parts signed out **
     parts_used = db.relationship('PartsSignedOut', backref='teams', lazy='dynamic')

@@ -186,6 +186,26 @@ def getMembers():
         teamMembersJSON.append({"value": member.id, "label": str(member.first_name + " " + member.last_name)})
     return jsonify(teamMembersJSON)
 
+# EditTeam.js
+@api.route('/manageteams/deleteteam', methods=['POST'])
+@cross_origin()
+#@login_required
+def deleteTeam():
+    data = json.loads(request.data)
+    teamNumber = data['teamNumber']
+    team = Teams.query.filter_by(id=teamNumber).first()
+    if(team == None):
+        return jsonify({"status": "error", "message": "team does not exist"})
+    teamMembers = team.team_members.all()
+    for member in teamMembers:
+        team.team_members.remove(member)
+    Teams.query.filter_by(id=teamNumber).delete()
+    db.session.commit()
+    return jsonify({"status":"success", "message":"team deleted successfully"})
+
+
+
+
 """
 [
   {index: 1, members: [{name:"Lisa Li", id: false}, {name: "Alex Bodgan", id: true}, {name: "Martin FFrench", id: true}, {name: "Nhien Tran-Nguyen", id: false}] },

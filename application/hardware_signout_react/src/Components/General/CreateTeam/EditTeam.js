@@ -21,7 +21,18 @@ export default class CreateTeam extends PureComponent {
     }
 
     deleteTeamLayerTwo() {
-        //actually delete
+      fetch('http://localhost:8080/api/manageteams/deleteteam', {
+          method: "POST",
+          body: JSON.stringify({"teamNumber":this.props.teamNumber})
+      })
+      .then(function(response) {
+          console.log(response);
+      })
+      .then(function(data){
+          console.log(data);
+      });
+
+      this.props.close();
     }
 
 
@@ -47,7 +58,7 @@ export default class CreateTeam extends PureComponent {
 
         return (
             <div className={styles.overlay}>
-                {deleteConfirm && 
+                {deleteConfirm &&
                     <div className={styles.popupCard} style={{zIndex: 11, position: "absolute", height: 392}}>
                         <p className={styles.popupCardHeading} style={{marginBottom: 25}}>BITCH ARE U SURE?????</p>
                         <p className={styles.popupCardMsg}>Lisa and Martin will whoop yo ass if u f*** dis up.</p>
