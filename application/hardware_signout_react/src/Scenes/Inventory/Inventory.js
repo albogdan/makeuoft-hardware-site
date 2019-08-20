@@ -4,20 +4,24 @@ import Component from '../../Components/Inventory/Component/Component';
 import CheckoutHistory from './../../Components/Inventory/CheckoutHistory/CheckoutHistory';
 import { ReactComponent as Search } from './../../Assets/Images/Icons/Search.svg'
 
-const tags = ["All", "MCU", "Shields and Breakout Boards", "Sensors", "Computer Peripherals", "Acuators and speakers", "Power Supply", "Passive", "Mechanical", "A - Z", "Z - A"];
+//const tags = ["All", "MCU", "Shields and Breakout Boards", "Sensors", "Computer Peripherals", "Acuators and speakers", "Power Supply", "Passive", "Mechanical", "A - Z", "Z - A"];
 
 
 export default class Inventory extends PureComponent {
   constructor(props) {
     super(props);
-    this.state = { active: 0, popup: false, popupComponent: null, components: null, showComponents: []}
+    this.state = { active: 0, popup: false, popupComponent: null,
+                   components: null, showComponents: [], tags:null}
     fetch('http://localhost:8080/api/inventory')
       .then(response => response.json())
       .then(components => this.setState({ components }));
+    fetch('http://localhost:8080/api/taglist')
+      .then(response => response.json())
+      .then(tags => this.setState({ tags }));
   }
 
   sort(num) {
-    let { components } = this.state;
+    let { components, tags } = this.state;
     this.setState({ active: num, showComponents: [] });
 
     if (num === 9) {
@@ -28,7 +32,7 @@ export default class Inventory extends PureComponent {
     } else {
       for (let i = 0; i < components.length; i++) {
         for (let j = 0; j < components[i].tags.length; j++) {
-          if (components[i].tags[j] === tags[num]) {
+          if (tags && components[i].tags[j] === tags[num]) {
             this.setState(state => {
               const showComponents = state.showComponents.concat(components[i]);
               return { showComponents };
@@ -69,13 +73,14 @@ export default class Inventory extends PureComponent {
   }
 
   render() {
-    let { active, popup, popupComponent, components, showComponents } = this.state;
+    let { active, popup, popupComponent, components, showComponents, tags } = this.state;
     const inventoryDataRecevied = (components===null);
     let tagButtons = [];
-    for (let i = 0; i < tags.length; i++) {
-      tagButtons.push(<button onClick={() => this.sort(i)} className={active === i ? styles['active'] : null}>{tags[i]}</button>);
+    if(tags !== null){
+      for (let i = 0; i < tags.length; i++) {
+        tagButtons.push(<button onClick={() => this.sort(i)} className={active === i ? styles['active'] : null}>{tags[i]}</button>);
+      }
     }
-
     !inventoryDataRecevied && (active===0) && this.setState({showComponents: components});
 
     return (
@@ -91,7 +96,7 @@ export default class Inventory extends PureComponent {
             <Search />
             <input onKeyUp={(event) => this.onkeyupCheck(event, this)} placeholder="Search for a component..." />
           </div>
-          
+
         </div>
 
         <div className={styles.inventoryList}>

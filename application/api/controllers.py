@@ -52,6 +52,20 @@ def teamsAll():
         teamsJSON.append(teamDict)
     return jsonify(teamsJSON)
 
+@api.route('/taglist', methods=['GET','POST'])
+@cross_origin()
+#@login_required
+def tagsAll():
+    # Get a list of all the teams
+    tagList = Tag.query.all()
+    tagsJSON = []
+    # For each team:
+    for tag in tagList:
+        tagDict = {}
+        tagDict['id'] = tag.id
+        tagDict['name'] = tag.tag_name
+        tagsJSON.append(tagDict)
+    return jsonify(tagsJSON)
 
 
 @api.route('/teamscheckout', methods=['GET','POST'])
@@ -122,7 +136,7 @@ def itemCheckout():
     #print(request.data)
     return jsonify({"status": "success", "message": "all parts recorded successfully"})
 
-@api.route('/addteam/getparticipants', methods=['GET', 'POST'])
+@api.route('/manageteams/getparticipants', methods=['GET', 'POST'])
 @cross_origin()
 #@login_required
 def usersNotOnTeam():
@@ -130,20 +144,20 @@ def usersNotOnTeam():
     usersJSON = []
     for user in users_no_team:
         if(user.team==None):
-            usersJSON.append({"id": user.id, "label": str(user.first_name + " " + user.last_name)})
+            usersJSON.append({"value": user.id, "label": str(user.first_name + " " + user.last_name)})
     return jsonify(usersJSON)
 
 
 ## ADD A CHECK FOR MINIMUM 2 PEOPLE, ALSO ADD GOVT_IDS
-@api.route('/addteam/addrecord', methods=['GET', 'POST'])
+@api.route('/manageteams/addrecord', methods=['GET', 'POST'])
 @cross_origin()
 #@login_required
 def addrecord():
     data = json.loads(request.data)
     newTeam = Teams()
     for user in data:
-        userDBEntry = Users.query.filter_by(id=user['id']).first()
-        print(userDBEntry)
+        userDBEntry = Users.query.filter_by(id=user['value']).first()
+        userDBEntry.id_provided = user['governmentID']
         newTeam.team_members.append(userDBEntry)
     db.session.add(newTeam)
     db.session.commit()

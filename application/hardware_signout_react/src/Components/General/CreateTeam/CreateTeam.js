@@ -26,7 +26,7 @@ export default class CreateTeam extends PureComponent {
         } else if (addTeamMembers.length < 2) {
             this.setState({ alertStyle: styles.alert, idAlert: false });
         } else {
-            fetch('http://localhost:8080/api/addteam/addrecord', {
+            fetch('http://localhost:8080/api/manageteams/addrecord', {
                 method: "POST",
                 body: JSON.stringify(addTeamMembers)
             })
@@ -47,7 +47,7 @@ export default class CreateTeam extends PureComponent {
             const addTeamMembers = state.addTeamMembers.map((item, j) => {
             if (j === index) {
                 item.label = evt.label;
-                item.id = evt.id;
+                item.value = evt.value;
                 item.governmentID = false;
                 found = true;
                 return item;
@@ -55,7 +55,7 @@ export default class CreateTeam extends PureComponent {
                 return item;
             }});
             if (!found) {
-                addTeamMembers.push({label: evt.label, id: evt.id, governmentID: false})
+                addTeamMembers.push({label: evt.label, value: evt.value, governmentID: false})
             }
             return { addTeamMembers };
         });
@@ -100,7 +100,7 @@ export default class CreateTeam extends PureComponent {
                     <Close onClick={close} className={styles.popupCardClose} />
                     <p className={styles.popupCardHeading}>Create Team</p>
                     <p className={`${styles.popupCardMsg} ${alertStyle}`}>Teams must have at least 2 members decided when signing up their team</p>
-                    {idAlert && 
+                    {idAlert &&
                         <p className={`${styles.popupCardMsg} ${styles.alert}`} style={{marginTop: "-1rem"}}>At least 1 member has to provide their id</p>
                     }
                     {console.log("addTeamMembers", addTeamMembers) }
