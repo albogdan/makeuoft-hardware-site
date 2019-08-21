@@ -14,9 +14,8 @@ export default class teamOverview extends PureComponent {
   }
 
   render() {
-    let { teamNumber } = this.props.location.state;
+    let teamNumber = JSON.parse(localStorage.getItem('viewThisTeam'));
 
-   
     return (
       <div className={styles.overview}>
         <h2>Team Overview</h2>
@@ -35,10 +34,6 @@ export default class teamOverview extends PureComponent {
 
         <Accordion className={styles['accordion']} allowZeroExpanded={true} allowMultipleExpanded={true}  preExpanded={["checkout"]}> 
           <TeamOverviewAccordion heading={"Checked Out Items"}>
-            <Link to={'/return-items'} style={{alignSelf: "flex-end"}}>
-              <button>Return their stuff</button>
-            </Link>
-            
             <div className={styles.checkoutTable}>
               <p>Component</p>
               <p>Quantity</p>
@@ -48,6 +43,10 @@ export default class teamOverview extends PureComponent {
             <BasketItem component="Arduino" quantity={5} />
             <BasketItem component="Arduino" quantity={5} />
             <BasketItem component="Arduino" quantity={5} />
+
+            <Link to={'/return-items'} style={{alignSelf: "flex-end"}}>
+              <button>Return their stuff</button>
+            </Link>
 
           </TeamOverviewAccordion>
           <TeamOverviewAccordion heading={"Returned Items"}>
