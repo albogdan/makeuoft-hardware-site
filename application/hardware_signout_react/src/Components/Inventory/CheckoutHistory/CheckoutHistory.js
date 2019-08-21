@@ -23,7 +23,7 @@ export default class CheckoutHistory extends PureComponent {
                 <div className={styles.history}>
                     <Close onClick={close} />
                     <div className={styles.historyLeft}>
-                        <Component item={event.name} total={event.total} left={event.left} isCheckout={true} />
+                        <Component item={event.name} total={event.total} left={event.available} isCheckout={true} />
 
                         <div className={styles.historyLeftTags}>
                             <p className={styles.historyLeftTagsTag}>Tags:</p>

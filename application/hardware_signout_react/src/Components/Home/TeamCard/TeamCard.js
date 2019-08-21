@@ -27,8 +27,7 @@ export default class TeamCard extends PureComponent {
                         <button className={styles.cardButton1}>Add to cart</button>
                     </Link>
                     
-                    <Link to={{pathname: '/team-overview' }}>
-                    {/* ,state: { ...item} */}
+                    <Link to={{pathname: '/team-overview', state: { teamNumber: teamNumber }}}>
                         <button className={styles.cardButton2}>View cart</button>
                     </Link>
                 </div>

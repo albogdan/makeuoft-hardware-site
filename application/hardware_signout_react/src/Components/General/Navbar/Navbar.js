@@ -17,7 +17,6 @@ export default class Navbar extends PureComponent {
                     <div className={styles.headerContainerLinks}>
                         <Logo className={styles.logo}/>
 
-
                         <Link to={'/'}>
                             <Home />
                         </Link>
@@ -31,14 +30,11 @@ export default class Navbar extends PureComponent {
                         <Link to={'/checkout'}>
                             <Checkout />
                         </Link>
-                        <Link to={'/checkout'}>
-                            <Checkout />
-                        </Link>
+
                         <Link to={'/return-items'}>
                             <Return />
                         </Link>
                     </div>
-
                     <Logout />
                 </div>
             </header>

@@ -1,59 +1,71 @@
 import React, { PureComponent } from 'react'
 import styles from './teamOverview.module.scss';
 import { Accordion, AccordionItem, AccordionItemHeading, AccordionItemPanel, AccordionItemButton } from 'react-accessible-accordion';
-import 'react-accessible-accordion/dist/fancy-example.css';
+import TeamOverviewAccordion  from './../../Components/TeamOverview/TeamOverviewAccordion/TeamOverviewAccordion';
+import BasketItem from '../../Components/Checkout/BasketItem/BasketItem';
+import { ReactComponent as Edit } from './../../Assets/Images/Icons/edit-symbol.svg';
+import ListItem from './../../Components/Inventory/CheckoutHistory/CheckoutHistoryListItem';
+import { Link } from 'react-router-dom';
 
 export default class teamOverview extends PureComponent {
- 
+  constructor(props) {
+    super(props);
+    this.state = { };
+  }
 
   render() {
+    let { teamNumber } = this.props.location.state;
+
    
     return (
       <div className={styles.overview}>
         <h2>Team Overview</h2>
 
-        
         <div className={styles.overviewTeam}>
-          <span style={{fontWeight: 600}}>Team 1: &nbsp;</span>
-          <span>Lisa, </span>
-          <span>Lisa, </span>
-          <span>Lisa, </span>
-          <span>Lisa, </span>
+          <p style={{fontWeight: 600}}>Team {teamNumber}: &nbsp;</p>
+
+          {/* Please map thru the team member names */}
+          <span>Lisa Li</span>
+          <span>Martin Ffrench</span>
+          <span>Alex Bogdan</span>
+          <span>Raghav Sirikajfkjhkjhk</span>
+
+          {/* <Edit onClick={() => {openPopup("edit"); changePopupTeam(teamNumber)}}/> */}
         </div>
 
+        <Accordion className={styles['accordion']} allowZeroExpanded={true} allowMultipleExpanded={true}  preExpanded={["checkout"]}> 
+          <TeamOverviewAccordion heading={"Checked Out Items"}>
+            <Link to={'/return-items'} style={{alignSelf: "flex-end"}}>
+              <button>Return their stuff</button>
+            </Link>
+            
+            <div className={styles.checkoutTable}>
+              <p>Component</p>
+              <p>Quantity</p>
+            </div>
 
-        <Accordion className={styles['accordion']} allowZeroExpanded={true} allowMultipleExpanded={true} preExpanded={["checkout"]}>
-          <AccordionItem className={styles['accordion__item']} uuid={"checkout"}>
-              <AccordionItemHeading>
-                  <AccordionItemButton className={styles['accordion__button']}>
-                      Checked Out
-                  </AccordionItemButton>
-              </AccordionItemHeading>
-              <AccordionItemPanel className={styles['accordion__panel']}>
-                  <p>
-                      Exercitation in fugiat est ut ad ea cupidatat ut in
-                      cupidatat occaecat ut occaecat consequat est minim minim
-                      esse tempor laborum consequat esse adipisicing eu
-                      reprehenderit enim.
-                  </p>
-              </AccordionItemPanel>
-          </AccordionItem>
-          <AccordionItem className={styles['accordion__item']}>
-              <AccordionItemHeading>
-                  <AccordionItemButton className={styles['accordion__button']}>
-                      Returned
-                  </AccordionItemButton>
-              </AccordionItemHeading>
-              <AccordionItemPanel className={styles['accordion__panel']}>
-                  <p>
-                      In ad velit in ex nostrud dolore cupidatat consectetur
-                      ea in ut nostrud velit in irure cillum tempor laboris
-                      sed adipisicing eu esse duis nulla non.
-                  </p>
-              </AccordionItemPanel>
-          </AccordionItem>
+            <BasketItem component="Arduino" quantity={5} />
+            <BasketItem component="Arduino" quantity={5} />
+            <BasketItem component="Arduino" quantity={5} />
+            <BasketItem component="Arduino" quantity={5} />
+
+          </TeamOverviewAccordion>
+          <TeamOverviewAccordion heading={"Returned Items"}>
+            <div className={styles.historyRightTable}>
+                <p>Component</p>
+                <p>Quantity</p>
+                <p>Time</p>
+            </div>
+
+            <ListItem isOverView={true} component="Arduino" quantity={5} time="March 29, 9:45 PM" />
+            <ListItem isOverView={true} component="Arduino" quantity={5} time="March 29, 9:45 PM" />
+            <ListItem isOverView={true} component="Arduino" quantity={5} time="March 29, 9:45 PM" />
+            <ListItem isOverView={true} component="Arduino" quantity={5} time="March 29, 9:45 PM" />
+            <ListItem isOverView={true} component="Arduino" quantity={5} time="March 29, 9:45 PM" />
+            
+          </TeamOverviewAccordion>
         </Accordion>
-  </div>
+      </div>
     )
   }
 }

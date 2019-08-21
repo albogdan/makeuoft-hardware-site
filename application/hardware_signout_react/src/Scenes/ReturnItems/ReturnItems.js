@@ -204,7 +204,6 @@ export default class ReturnItems extends PureComponent {
               {componentField}
 
               <button className={styles.btnOutline} onClick={()=>this.addField()}>Add Component</button>
-              <button className={styles.btnFilled} onClick={()=>this.sendRequestForCheckout()} type={"submit"} style={{marginBottom: "30vh"}}>Submit</button>
             </div>
           </div>
         </div>
@@ -230,7 +229,7 @@ export default class ReturnItems extends PureComponent {
               <div className={styles.checkoutTableDivBasketConfirm}>
                 {/* <p>{selectedTeam ? `Confirm this is with ${selectedTeam.label}` : ""}</p> */}
                 <button className={styles.btnFilled} onClick={()=>this.sendRequestForCheckout()} type={"submit"}>Submit</button>
-                {console.log("basket", basketHardwares)}
+                {/* {console.log("basket", basketHardwares)} */}
               </div>
             </div>
           </div>

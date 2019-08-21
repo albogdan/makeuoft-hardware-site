@@ -5,16 +5,26 @@ import styles from './checkoutHistory.module.scss';
 
 export default class CheckoutHistoryListItem extends PureComponent {
     render() {
-        let {number, members, quantity, time } = this.props;
+        let {number, members, quantity, time, isOverView, component } = this.props;
         return (
             <div className={styles.listItem}>
                 <div className={styles.listItemTeam}>
-                    <span style={{fontWeight: 600}}>Team {number} : </span>
-                    { members.map((item, i) =>
-                        <span>{item}, </span>
+                    {isOverView ? (
+                        <>
+                                {component && 
+                                    <img src={require('./../../../Assets/Images/Components/' + component + '.jpg')} alt={component} ></img>
+                                }
+                                <p style={{marginLeft: "2rem"}}>{component}</p>
+                        </>
+                    ) : (
+                        <>
+                                <p style={{fontWeight: 600}}>Team {number}:&nbsp;</p>
+                                { members.map((item, i) =>
+                                    <span>{item}</span>
+                                )}
+                        </>
                     )}
                 </div>
-               
                 <p className={styles.listItemQuantity}>{quantity}</p>
                 <p className={styles.listItemTime}>{time}</p>
             </div>
