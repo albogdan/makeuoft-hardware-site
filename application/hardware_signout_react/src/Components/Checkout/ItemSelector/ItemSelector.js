@@ -24,7 +24,7 @@ export default class ItemSelector extends PureComponent {
 
     render() {
         let { selectedOption } = this.state;
-        let { type, options, defaultValue, selectItem, fieldIndex, selectTeam } = this.props;
+        let { type, options, defaultValue, selectItem, fieldIndex, selectTeam, selectedValue } = this.props;
         
         let style = (type === "team") ? styles.team : styles.component;
 
@@ -37,7 +37,7 @@ export default class ItemSelector extends PureComponent {
 
         return (
             <Select
-                value={selectedOption}
+                value={selectedValue}
                 onChange={this.handleChange}
                 onBlur={onBlur}
                 className={style}

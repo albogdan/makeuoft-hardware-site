@@ -28,12 +28,11 @@ export default class TeamCard extends PureComponent {
                     )}
                 </div>
                 <div className={styles.cardButton}>
-                    <Link to={'/checkout'}>
-                        <button className={styles.cardButton1}>Add to cart</button>
+                    <Link to={{pathname:'/checkout', state: {teamNumber: teamNumber}}}>
+                        <button className={styles.cardButton1} >Add to cart</button>
                     </Link>
-                    
                     <Link to={'/team-overview'} onClick={()=>this.SaveTeamToLocal()}>
-                        <button className={styles.cardButton2} >View cart</button>
+                        <button className={styles.cardButton2}>View cart</button>
                     </Link>
                 </div>
             </div>

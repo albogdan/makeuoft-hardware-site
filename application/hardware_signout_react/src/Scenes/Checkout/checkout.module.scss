@@ -50,6 +50,10 @@
                     margin: 2rem 0 0;
                 }
 
+                svg {
+                    margin-right: .5rem;
+                }
+
                 .btnFilled {
                     @include btnFilled;
                     align-self: flex-end;
@@ -98,10 +102,13 @@
             letter-spacing: 2.4px;
         }
     }
-
-
 }
 
-    
+   
+.alert {
+    color: color(red);
+    font-weight: 600;
+}
+
 
     

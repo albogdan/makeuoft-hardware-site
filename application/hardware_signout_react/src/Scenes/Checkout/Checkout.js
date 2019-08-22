@@ -7,6 +7,7 @@ import BasketItem from '../../Components/Checkout/BasketItem/BasketItem';
 import QuantitySelect from '../../Components/Checkout/ItemSelector/QuantitySelect';
 import { groupedOptions } from './../../Components/Checkout/CheckoutCards/testData';
 import { ReactComponent as Close } from './../../Assets/Images/Icons/x.svg';
+import { ReactComponent as Alert } from './../../Assets/Images/Icons/alert.svg';
 
 export default class Checkout extends PureComponent {
   constructor(props) {
@@ -16,7 +17,9 @@ export default class Checkout extends PureComponent {
       checkoutFields: [{name: "", selectOptions: [], selectedQuantity: {value: null}}, {name: "", selectOptions: [], selectedQuantity: {value: null}}, {name: "", selectOptions: [], selectedQuantity: {value: null}}],
       basketHardwares: [],
       selectedHardware: null,
-      teams: null}
+      teams: null,
+      alertNoTeam: false,
+      alertCartEmpty: false}
     this.getSelectedHardware = this.getSelectedHardware.bind(this);
     this.changeQuantity = this.changeQuantity.bind(this);
     this.deleteCheckoutField = this.deleteCheckoutField.bind(this);
@@ -124,16 +127,25 @@ export default class Checkout extends PureComponent {
   }
 
   sendRequestForCheckout () {
-    // console.log("Team to checkout:", this.state.selectedTeam.value);
-    // console.log("ITEMS TO DO:", this.state.basketHardwares);
+    let {selectedTeam, basketHardwares, alertNoTeam, alertCartEmpty } = this.state;
+    this.setState({ alertCartEmpty: false, alertNoTeam: false })
+    // console.log("Team to checkout:", selectedTeam.value);
+    // console.log("ITEMS TO DO:", basketHardwares);
+    if (basketHardwares.length === 0){
+      this.setState({ alertCartEmpty: true })
+    }
+    if (selectedTeam === null) {
+      this.setState({ alertNoTeam: true })
+      return;
+    } 
     var itemList = [];
-    for(var i=0; i<this.state.basketHardwares.length; i++){
-      itemList.push({"name": this.state.basketHardwares[i].name,
-                     "quantity":this.state.basketHardwares[i].selectedQuantity });
+    for(var i=0; i<basketHardwares.length; i++){
+      itemList.push({"name": basketHardwares[i].name,
+                    "quantity": basketHardwares[i].selectedQuantity });
     }
 
     var data = {
-      "team" : this.state.selectedTeam.value,
+      "team" : selectedTeam.value,
       "items" :  itemList
     }
     console.log("DATA", data);
@@ -142,19 +154,30 @@ export default class Checkout extends PureComponent {
       method: "POST",
       body:JSON.stringify(data)
     })
-      .then(function(response) {
-        console.log(response);
-      })
-      .then(function(data){
-        console.log(data);
-      });
+    .then(function(response) {
+      console.log(response);
+    })
+    .then(function(data){
+      console.log(data);
+    });
+
+    // This refreshes the page so all the fields reset
+    window.location.reload(false); 
   }
 
   render() {
     let componentField = [];
-    let { checkoutFields, basketHardwares, selectedHardware, teams, selectedTeam } = this.state;
+    let { checkoutFields, basketHardwares, selectedHardware, teams, selectedTeam, alertCartEmpty, alertNoTeam } = this.state;
     const basketEmpty = (basketHardwares === null);
     const teamsDataRecevied = (teams === null);
+
+    console.log("this.props.location.state.teamNumber", this.props.location.state)
+
+    if (this.props.location.state) {
+      this.setState({selectedTeam: this.props.location.state.teamNumber});
+      console.log("this.props.location.state.teamNumber 2", this.props.location.state.teamNumber)
+    }
+    console.log("selectedTeam", selectedTeam);
 
     for (var i = 0; i < checkoutFields.length; i ++) {
       componentField.push(
@@ -191,6 +214,7 @@ export default class Checkout extends PureComponent {
                   <p className={styles.inventoryListLoading}>Loading...</p>
                 ) : (
                     <ItemSelector type="team"
+                      selectedValue={selectedTeam}
                       selectTeam={this.selectTeam}
                       options={teams} />
                 )}
@@ -229,7 +253,9 @@ export default class Checkout extends PureComponent {
                 )}
               </div>
               <div className={styles.checkoutTableDivBasketConfirm}>
-                <p>{selectedTeam ? `Confirm this is with ${selectedTeam.label}` : ""}</p>
+                {selectedTeam && <p>Confirm you are checking out these items with {selectedTeam.label}</p> }
+                {alertNoTeam && <p className={styles.alert}><Alert />lol u forgot to select a team</p> }
+                {alertCartEmpty && <p className={styles.alert}><Alert />There's nothing in the cart tho????</p> }
                 <button className={styles.btnFilled} onClick={()=>this.sendRequestForCheckout()} type={"submit"}>Submit</button>
                 {console.log("basket", basketHardwares)}
               </div>

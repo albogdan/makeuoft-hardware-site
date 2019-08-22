@@ -60,9 +60,9 @@ export default class CreateTeam extends PureComponent {
             <div className={styles.overlay}>
                 {deleteConfirm &&
                     <div className={styles.popupCard} style={{zIndex: 11, position: "absolute", height: 392}}>
-                        <p className={styles.popupCardHeading} style={{marginBottom: 25}}>BITCH ARE U SURE?????</p>
+                        <p className={styles.popupCardHeading} style={{marginBottom: 25}}>BITCH ARE U SURE?????????</p>
                         <p className={styles.popupCardMsg}>Lisa and Martin will whoop yo ass if u f*** dis up.</p>
-                        <button className={styles.deleteTeamBtn} onClick={()=>this.deleteTeamLayerTwo()} style={{alignSelf: "center", marginBottom: 20}}>D E L E T E</button>
+                        <button className={styles.deleteTeamBtn} onClick={()=>this.deleteTeamLayerTwo()} style={{alignSelf: "center", marginBottom: 20}}>I said D  E  L  E  T  E</button>
                         <button className={styles.popupCardBtn} onClick={()=>this.deleteTeamLayerOne()}>Take me back pls im dumb</button>
                     </div>
 
