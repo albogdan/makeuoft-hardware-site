@@ -10,7 +10,17 @@ RUN apk --update add --virtual build-dependencies libffi-dev openssl-dev python-
   && apk del build-dependencies
 
 RUN pip install pymysql
-COPY ./application application
+
+COPY ./application/api application/api
+COPY ./application/auth application/auth
+COPY ./application/hardware_signout application/hardware_signout
+COPY ./application/seeds application/seeds
+COPY ./application/static application/static
+COPY ./application/templates application/templates
+COPY ./application/__init__.py application
+COPY ./application/cli.py application
+COPy ./application/db_models.py application
+
 COPY ./migrations migrations
 COPY ./main.py ./config.py ./
 RUN rm -rf applicaton/hardware_signout_react
