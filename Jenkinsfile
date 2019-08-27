@@ -21,8 +21,9 @@ pipeline {
 
           sh 'cd application/hardware_signout_react && npm run build'
 
-//          # Go back to the root directory
-          sh 'cd ../..'
+//          # Remove node_modules
+          sh 'rm -rf application/hardware_signout_react/node_modules'
+
 
 //          # Delete the existing docker image
           sh 'docker rmi --force makeuoft-hardware-site:latest'
