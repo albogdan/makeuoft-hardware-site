@@ -15,7 +15,6 @@ COPY ./application/api application/api
 COPY ./application/auth application/auth
 COPY ./application/hardware_signout application/hardware_signout
 COPY ./application/seeds application/seeds
-COPY ./application/static application/static
 COPY ./application/templates application/templates
 COPY ./application/__init__.py application
 COPY ./application/cli.py application

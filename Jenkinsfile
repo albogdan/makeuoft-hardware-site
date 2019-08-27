@@ -24,9 +24,12 @@ pipeline {
 //          # Remove node_modules
           sh 'rm -rf application/hardware_signout_react/node_modules'
 
-
+          sh 'rm -r /var/www/makeuofthardware/public_html/static/'
+          sh 'cp -r application/static /var/www/makeuofthardware/public_html/static'
+          
 //          # Delete the existing docker image
           sh 'docker rmi --force makeuoft-hardware-site:latest'
+
 
 
 //          # Build a new image
