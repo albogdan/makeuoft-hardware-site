@@ -23,7 +23,7 @@ pipeline {
           sh 'npm run build'
 
 //          # Go back to the root directory
-          sh 'cd ../..''
+          sh 'cd ../..'
 
 //          # Delete the existing docker image
           sh 'docker rmi --force makeuoft-hardware-site:latest'
