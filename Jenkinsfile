@@ -15,7 +15,7 @@ pipeline {
 //          # Go to the React folder
           sh 'cd application/hardware_signout_react'
 
-/          # Install dependencies and build the app
+//          # Install dependencies and build the app
           sh 'npm install'
 
 //          # Note: npm run build also copies files from the build
