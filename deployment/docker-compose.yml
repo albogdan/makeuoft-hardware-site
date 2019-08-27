@@ -6,9 +6,9 @@ services:
           context: ..
           dockerfile: ./deployment/Dockerfile
       image: makeuoft-hardware-site:latest
-      command: gunicorn main:flask_app --bind 0.0.0.0:8080
+      command: gunicorn main:flask_app --bind 0.0.0.0:8282
       ports:
-         - "8080:8080"
+         - "8282:8282"
       volumes:
          - ./application:/application
          - /var/run/mysqld/mysqld.sock:/run/mysqld/mysqld.sock

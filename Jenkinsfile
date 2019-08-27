@@ -21,9 +21,6 @@ pipeline {
 
           sh 'cd application/hardware_signout_react && npm run build'
 
-//          # Remove node_modules
-          sh 'rm -rf application/hardware_signout_react/node_modules'
-
 //          # Delete the existing docker image
           sh 'docker rmi --force makeuoft-hardware-site:latest'
 
@@ -41,7 +38,7 @@ pipeline {
 //          #Bring down the old container
           sh 'docker-compose -f deployment/docker-compose.yml down'
 //          #Bring up the new container
-          sh 'docker-compose -f deployment/docker-compose.yml up -d'
+          sh 'docker-compose -f deployment/docker-compose.yml -p makeuofthardware up -d'
 
       }
     }

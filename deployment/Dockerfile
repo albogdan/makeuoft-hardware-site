@@ -29,4 +29,4 @@ RUN rm -rf applicaton/hardware_signout_react
 ENV FLASK_APP main.py
 
 
-EXPOSE 8080
+EXPOSE 8282
