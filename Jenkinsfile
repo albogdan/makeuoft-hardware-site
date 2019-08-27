@@ -10,10 +10,8 @@ pipeline {
   stages {
     stage('Build') {
       steps {
-//          #Delete existing docking image
-          sh 'docker rmi --force makeuoft-site:latest'
-//          #Build new image
-          sh 'docker-compose -f deployment/docker-compose.yml build'
+//          # Run the build script
+          sh deployment/build.sh
       }
     }
     stage('Deploy') {
@@ -21,9 +19,10 @@ pipeline {
         branch "master"
       }
       steps {
+
 //          #Copy static files
-          sh 'rm -r /var/www/makeuoft/public_html/static/'
-          sh 'cp -r application/static /var/www/makeuoft/public_html/static'
+//          sh 'rm -r /var/www/makeuoft/public_html/static/'
+//          sh 'cp -r application/static /var/www/makeuoft/public_html/static'        
 //          #Bring down the old container
           sh 'docker-compose -f deployment/docker-compose.yml down'
 //          #Bring up the new container

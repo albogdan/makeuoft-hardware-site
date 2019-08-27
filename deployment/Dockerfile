@@ -12,11 +12,11 @@ RUN apk --update add --virtual build-dependencies libffi-dev openssl-dev python-
 RUN pip install pymysql
 COPY ./application application
 COPY ./migrations migrations
-COPY ./main.py ./config.py ./boot.sh ./
+COPY ./main.py ./config.py ./
+RUN rm -rf applicaton/hardware_signout_react
 
-RUN chmod +x boot.sh
 
 ENV FLASK_APP main.py
 
 
-EXPOSE 8181
+EXPOSE 8282
