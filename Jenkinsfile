@@ -11,27 +11,26 @@ pipeline {
     stage('Build') {
       steps {
 //          # Run the build script
-          sh '''
+
 //          # Go to the React folder
-          cd application/hardware_signout_react
+          sh 'cd application/hardware_signout_react'
 
 /          # Install dependencies and build the app
-          npm install
+          sh 'npm install'
 
 //          # Note: npm run build also copies files from the build
 //          # to the correct locations based on commands in package.json
-          npm run build
+          sh 'npm run build'
 
 //          # Go back to the root directory
-          cd ../..
+          sh 'cd ../..''
 
 //          # Delete the existing docker image
-          docker rmi --force makeuoft-hardware-site:latest
+          sh 'docker rmi --force makeuoft-hardware-site:latest'
 
 
 //          # Build a new image
-          docker-compose -f deployment/docker-compose.yml build
-          '''
+          sh 'docker-compose -f deployment/docker-compose.yml build'
       }
     }
     stage('Deploy') {
