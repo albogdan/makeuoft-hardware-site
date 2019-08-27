@@ -12,15 +12,14 @@ pipeline {
       steps {
 //          # Run the build script
 
-//          # Go to the React folder
-          sh 'cd application/hardware_signout_react'
+//          # Go to the React folder and install dependencies
+          sh 'cd application/hardware_signout_react && npm install'
 
-//          # Install dependencies and build the app
-          sh 'npm install'
-
+//          # Go to the React folder and build the app
 //          # Note: npm run build also copies files from the build
 //          # to the correct locations based on commands in package.json
-          sh 'npm run build'
+
+          sh 'cd application/hardware_signout_react && npm run build'
 
 //          # Go back to the root directory
           sh 'cd ../..'
