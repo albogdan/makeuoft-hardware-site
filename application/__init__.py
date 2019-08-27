@@ -51,7 +51,7 @@ def create_app():
         ProxyPassReverse /makeuoft http://ieee.utoronto.ca/makeuoft
         Alias /makeuoft/static /var/www/makeuoft/public_html/static
         """
-        flask_app.wsgi_app = ReverseProxied(flask_app.wsgi_app, script_name='/makeuoft')
+        flask_app.wsgi_app = ReverseProxied(flask_app.wsgi_app, script_name='/mfthardware')
 
     else:
         flask_app = Flask(__name__)
