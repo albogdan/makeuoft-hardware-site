@@ -26,7 +26,7 @@ pipeline {
 
           sh 'rm -r /var/www/makeuofthardware/public_html/static/'
           sh 'cp -r application/static /var/www/makeuofthardware/public_html/static'
-          
+
 //          # Delete the existing docker image
           sh 'docker rmi --force makeuoft-hardware-site:latest'
 
@@ -44,7 +44,7 @@ pipeline {
 //          #Bring down the old container
           sh 'docker-compose -f deployment/docker-compose.yml down'
 //          #Bring up the new container
-          sh 'docker-compose -f deployment/docker-compose.yml -p makeuoft-hardware up -d'
+          sh 'docker-compose -f deployment/docker-compose.yml up -d'
 
       }
     }
