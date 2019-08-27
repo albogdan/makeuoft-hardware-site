@@ -11,7 +11,9 @@ pipeline {
     stage('Build') {
       steps {
 //          # Run the build script
-          sh deployment/build.sh
+          withEnv(['PATH+EXTRA=/usr/sbin:/usr/bin:/sbin:/bin']) {
+            sh deployment/build.sh
+          }
       }
     }
     stage('Deploy') {
